@@ -1,4 +1,6 @@
-package fileio;
+package CustomClasses;
+
+import fileio.CardInput;
 
 public class Minion extends Card{
     private int attackDamage;

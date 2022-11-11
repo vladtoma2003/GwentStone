@@ -1,4 +1,6 @@
-package fileio;
+package CustomClasses;
+
+import fileio.CardInput;
 
 public class Environment extends Card {
     public Environment(CardInput input) {

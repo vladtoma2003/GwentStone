@@ -1,4 +1,6 @@
-package fileio;
+package CustomClasses;
+
+import fileio.CardInput;
 
 public class Hero extends Card{
     private static int health = 30;

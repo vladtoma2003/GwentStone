@@ -1,5 +1,6 @@
 package main;
 
+import CustomClasses.*;
 import checker.Checker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,64 +76,15 @@ public final class Main {
 
         //TODO add here the entry point to your implementation
 
-        GameInput input = inputData.getGames().get(0);
+        int curr_game = 0;
 
-        int deck1Idx = input.getStartGame().getPlayerOneDeckIdx();
-        int deck2Idx = input.getStartGame().getPlayerTwoDeckIdx();
+        Game game = new Game(inputData, curr_game);
 
-        ArrayList<CardInput> deck1 = inputData.getPlayerOneDecks().getDecks().get(deck1Idx);
-        ArrayList<CardInput> deck2 = inputData.getPlayerTwoDecks().getDecks().get(deck2Idx);
+        game.GamePrep(inputData.getGames().get(curr_game));
 
-        DeckInit p1deck = new DeckInit(deck1);
-        DeckInit p2deck = new DeckInit(deck2);
+        var commands = inputData.getGames().get(curr_game).getActions();
 
-        CardInput hero1 = input.getStartGame().getPlayerOneHero();
-        CardInput hero2 = input.getStartGame().getPlayerTwoHero();
-
-        Hero herop1 = new Hero(hero1);
-        Hero herop2 = new Hero(hero2);
-
-        Player p1 = new Player(p1deck.getDeck(), herop1, 1);
-        Player p2 = new Player(p2deck.getDeck(), herop2, 2);
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(p1);
-        players.add(p2);
-
-        shuffle(players.get(0).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
-        shuffle(players.get(1).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
-
-        players.get(0).PickUpCard(players.get(0).getDeck());
-        players.get(1).PickUpCard(players.get(1).getDeck());
-
-
-        if (input.getStartGame().getStartingPlayer() == 1) {
-            players.get(0).setTurn(true);
-        } else {
-            players.get(1).setTurn(true);
-        }
-
-        for (var actions : inputData.getGames().get(0).getActions()) {
-            switch (actions.getCommand()) {
-                case "getPlayerDeck":
-                    var curr_deck = players.get(actions.getPlayerIdx() - 1).getDeck();
-                    output.addObject().put("command", "getPlayerDeck").
-                            put("playerIdx", actions.getPlayerIdx()).
-                            putPOJO("output", curr_deck);
-                    break;
-                case "getPlayerHero":
-                    var curr_hero = players.get(actions.getPlayerIdx() - 1).getHero();
-                    output.addObject().put("command", "getPlayerHero").
-                            put("playerIdx", actions.getPlayerIdx()).
-                            putPOJO("output", curr_hero);
-                    break;
-                case "getPlayerTurn":
-                    var currTurn = players.get(0).isTurn() ? 1 : 2;
-                    output.addObject().put("command", "getPlayerTurn").
-                            put("output", currTurn);
-                    break;
-
-            }
-        }
+        Actions.Command(game, commands, output);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);

@@ -1,4 +1,4 @@
-package fileio;
+package CustomClasses;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,9 @@ public class Player {
     private ArrayList<Card> deck;
     private ArrayList<Card> hand = new ArrayList<>();
     private Hero hero;
-    private boolean turn = false;
     private int playerIdx;
+
+    private int mana;
 
     public Player(ArrayList<Card> deck, Hero hero, int playerIdx) {
         this.deck = deck;
@@ -45,19 +46,19 @@ public class Player {
         this.hero = hero;
     }
 
-    public boolean isTurn() {
-        return turn;
-    }
-
-    public void setTurn(boolean turn) {
-        this.turn = turn;
-    }
-
     public int getPlayerIdx() {
         return playerIdx;
     }
 
     public void setPlayerIdx(int playerIdx) {
         this.playerIdx = playerIdx;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 }

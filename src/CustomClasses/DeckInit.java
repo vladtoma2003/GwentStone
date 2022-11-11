@@ -1,4 +1,6 @@
-package fileio;
+package CustomClasses;
+
+import fileio.CardInput;
 
 import java.util.ArrayList;
 
