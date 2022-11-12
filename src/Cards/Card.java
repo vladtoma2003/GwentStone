@@ -1,10 +1,10 @@
-package CustomClasses;
+package Cards;
 
 import fileio.CardInput;
 
 import java.util.ArrayList;
 
-public abstract class Card {
+public class Card {
     private int mana;
     private String description;
     private ArrayList<String> colors;
@@ -16,7 +16,20 @@ public abstract class Card {
         colors = new ArrayList<>(card.getColors());
         name = card.getName();
     }
-    public Card() {}
+    public Card (Card card) {
+        mana = card.getMana();
+        description = card.getDescription();
+        colors = new ArrayList<>(card.getColors());
+        name = card.getName();
+    }
+
+    public Card() {
+    }
+
+    public Card copy(Card card) {
+        Card c = new Card(card);
+        return c;
+    }
 
     public int getMana() {
         return mana;
@@ -49,4 +62,5 @@ public abstract class Card {
     public void setName(String name) {
         this.name = name;
     }
+
 }

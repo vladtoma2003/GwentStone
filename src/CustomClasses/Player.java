@@ -1,25 +1,26 @@
 package CustomClasses;
 
+import Cards.*;
+
+import java.lang.invoke.VarHandle;
 import java.util.ArrayList;
 
 public class Player {
 
     private ArrayList<Card> deck;
-    private ArrayList<Card> hand = new ArrayList<>();
+    private ArrayList<Card> hand;
     private Hero hero;
     private int playerIdx;
 
-    private int mana;
+    private int mana = 1;
+
+    private int closestRow;
 
     public Player(ArrayList<Card> deck, Hero hero, int playerIdx) {
         this.deck = deck;
         this.hero = hero;
         this.playerIdx = playerIdx;
-    }
-
-    public void PickUpCard(ArrayList<Card> deck) {
-        hand.add(deck.get(0));
-        deck.remove(0);
+        hand = new ArrayList<>();
     }
 
     public ArrayList<Card> getDeck() {
@@ -60,5 +61,13 @@ public class Player {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getClosestRow() {
+        return closestRow;
+    }
+
+    public void setClosestRow(int closestRow) {
+        this.closestRow = closestRow;
     }
 }

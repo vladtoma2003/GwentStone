@@ -1,15 +1,31 @@
-package CustomClasses;
+package Cards;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 
 public class Minion extends Card{
     private int attackDamage;
     private int health;
+    @JsonIgnore
+    private int row;
 
     public Minion(CardInput input) {
         super(input);
         attackDamage = input.getAttackDamage();
         health = input.getHealth();
+    }
+
+    public Minion(Minion m) {
+        this.setName(m.getName());
+        this.setMana(m.getMana());
+        this.setDescription(m.getDescription());
+        this.setColors(m.getColors());
+        this.setHealth(m.getHealth());
+        this.setAttackDamage(m.getAttackDamage());
+    }
+
+    public Minion() {
+
     }
 
     public int getAttackDamage() {
@@ -26,6 +42,14 @@ public class Minion extends Card{
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
     }
 
     @Override
