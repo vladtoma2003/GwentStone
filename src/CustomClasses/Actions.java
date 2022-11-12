@@ -1,6 +1,7 @@
 package CustomClasses;
 
 import Cards.Card;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import fileio.ActionsInput;
 import fileio.GameInput;
@@ -20,15 +21,15 @@ public class Actions {
 
     }
 
-    private static void placeCard(Game game, int idx) {
+    private static void placeCard(Game game, int idx, Error err) {
         int currentPlayer = game.getTable().getCurrTurn();
-        game.getTable().PlaceCard(game.getPlayers().get(currentPlayer), idx, currentPlayer);
+        game.getTable().PlaceCard(game.getPlayers().get(currentPlayer), idx, currentPlayer, err);
     }
 
 
     public static void Command(Game game, ArrayList<ActionsInput> commands, ArrayNode output) {
         for (ActionsInput actions : commands) {
-            System.out.println(actions.getCommand().toString());
+//            System.out.println(actions.getCommand().toString());
             switch (actions.getCommand()) {
                 case "getPlayerDeck":
                     var curr_deck = game.getPlayers().get(actions.getPlayerIdx() - 1).getDeck();
@@ -49,10 +50,15 @@ public class Actions {
                     break;
                 case "endPlayerTurn":
                     endTurn(game);
-                    System.out.println(game.getTurnsThisGame());
                     break;
                 case "placeCard":
-                    placeCard(game, actions.getHandIdx());
+                    placeCard(game, actions.getHandIdx(), game.getErr());
+                    if(game.getErr().getErr()) {
+                        output.addObject().put("command", "placeCard").
+                                put("handIdx", 0).
+                                put("error", game.getErr().getMessage());
+                    }
+                    game.ResetError(game.getErr());
                     break;
                 case "getCardsInHand":
                     var curr_hand = game.getPlayers().get(actions.getPlayerIdx() - 1).getHand();
@@ -78,6 +84,5 @@ public class Actions {
 
             }
         }
-
     }
 }

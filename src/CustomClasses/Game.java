@@ -14,8 +14,9 @@ import static java.util.Collections.shuffle;
 public class Game {
     private Table table;
     private ArrayList<Player> players;
-    private static int turnsThisGame = 0;
-    private static int round = 1;
+    private int turnsThisGame = 0;
+    private int round = 1;
+    private Error err;
 
     public void PrintHand() {
         String ceva1 = players.get(0).getHand().toString();
@@ -52,8 +53,15 @@ public class Game {
         players.add(p1);
         players.add(p2);
 
+        err = new Error();
+
         table = new Table(input.getStartGame().getStartingPlayer());
 
+    }
+
+    public void ResetError(Error err) {
+        err.setMessage(null);
+        err.setErr(false);
     }
 
     public void GamePrep(GameInput input) {
@@ -64,7 +72,7 @@ public class Game {
         PickUpCard(players, 1);
 
         table.setCurrTurn(input.getStartGame().getStartingPlayer() - 1);
-        System.out.println("Starting turn:" + input.getStartGame().getStartingPlayer());
+//        System.out.println("Starting turn:" + input.getStartGame().getStartingPlayer());
     }
     public void PickUpCard(ArrayList<Player> players, int idx) {
         var deck = new ArrayList<>(players.get(idx).getDeck());
@@ -83,6 +91,7 @@ public class Game {
         }
         PickUpCard(players, 0);
         PickUpCard(players, 1);
+//        System.out.println("Runda " + round);
     }
 
     public void switchTurns() {
@@ -111,15 +120,23 @@ public class Game {
         return turnsThisGame;
     }
 
-    public static int getRound() {
+    public int getRound() {
         return round;
     }
 
-    public static void setTurnsThisGame(int turnsThisGame) {
-        Game.turnsThisGame = turnsThisGame;
+    public void setTurnsThisGame(int turnsThisGame) {
+        this.turnsThisGame = turnsThisGame;
     }
 
-    public static void setRound(int round) {
-        Game.round = round;
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public Error getErr() {
+        return err;
+    }
+
+    public void setErr(Error err) {
+        this.err = err;
     }
 }

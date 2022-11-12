@@ -51,8 +51,6 @@ public class DeckInit {
                         deck.add(card);
                     }
                 }
-//                Minion card = new Minion(c);
-//                deck.add(card);
             }
         }
     }

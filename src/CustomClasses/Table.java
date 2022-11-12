@@ -23,11 +23,18 @@ public class Table {
         return bound <= table[row].size();
     }
 
-
-    public void PlaceCard(Player p, int idx, int currPlayer) {
+    public void PlaceCard(Player p, int idx, int currPlayer, Error err) {
+        if(idx >= p.getHand().size()) {
+            return;
+        }
+        if (p.getHand().get(idx).getName().equals("Winterfell") ||
+                p.getHand().get(idx).getName().equals("Firestorm") ||
+                p.getHand().get(idx).getName().equals("Heart Hound")) {
+            err.setErr(true);
+            err.setMessage("Cannot place environment card on table.");
+            return;
+        }
         Minion card = (Minion) p.getHand().get(idx);
-        p.getHand().remove(idx);
-        int mana = card.getMana();
         int row = 0;
         if(currPlayer == 0) {
             if(card.getRow() == 1) {
@@ -42,9 +49,23 @@ public class Table {
                 row = 0;
             }
         }
-
-        table[row].add(0, card);
+        int mana = card.getMana();
+//        System.out.println(p.getMana() + " " + mana);
+//        System.out.println(card.toString());
+        if(mana > p.getMana()) {
+            System.out.println("EROARE:" + p.getMana() + mana);
+            err.setErr(true);
+            err.setMessage("Not enough mana to place card on table.");
+            return;
+        }
+        if(isFullRow(row)) {
+            err.setErr(true);
+            err.setMessage("Cannot place card on table since row is full.");
+            return;
+        }
         p.setMana(p.getMana()-mana);
+        p.getHand().remove(idx);
+        table[row].add(0, card);
     }
 
 
