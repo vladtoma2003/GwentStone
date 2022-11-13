@@ -59,48 +59,42 @@
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker",
     "attackDamage" : 2,
-    "health" : 1,
-    "frozen" : false
+    "health" : 1
   }, {
     "mana" : 2,
     "description" : "Premium card: Fear him. Your last breath is now.",
     "colors" : [ "Purple", "Yellow" ],
     "name" : "Berserker",
     "attackDamage" : 3,
-    "health" : 2,
-    "frozen" : false
+    "health" : 2
   }, {
     "mana" : 2,
     "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
     "colors" : [ "Black", "Grey", "Blue" ],
     "name" : "Sentinel",
     "attackDamage" : 1,
-    "health" : 3,
-    "frozen" : false
+    "health" : 3
   } ], [ ], [ ], [ {
     "mana" : 1,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel",
     "attackDamage" : 1,
-    "health" : 2,
-    "frozen" : true
+    "health" : 2
   }, {
     "mana" : 2,
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker",
     "attackDamage" : 2,
-    "health" : 0,
-    "frozen" : true
+    "health" : 0
   }, {
     "mana" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker",
     "attackDamage" : 2,
-    "health" : 0,
-    "frozen" : false
+    "health" : 0
   } ] ]
 }, {
   "command" : "getCardsInHand",
@@ -111,8 +105,7 @@
     "colors" : [ "Black", "White", "Red" ],
     "name" : "The Cursed One",
     "attackDamage" : 0,
-    "health" : 1,
-    "frozen" : false
+    "health" : 1
   } ]
 }, {
   "command" : "getCardsInHand",
@@ -123,7 +116,6 @@
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple",
     "attackDamage" : 0,
-    "health" : 2,
-    "frozen" : false
+    "health" : 2
   } ]
 } ]

@@ -1,7 +1,11 @@
 package Cards;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fileio.CardInput;
+
+
+@JsonIgnoreProperties({ "frozen"})
 
 public class Minion extends Card{
     private int attackDamage;

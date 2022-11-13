@@ -151,7 +151,6 @@ public class Table {
                     table[i].remove(card);
                 }
             }
-
         }
     }
 
