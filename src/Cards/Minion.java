@@ -9,6 +9,9 @@ public class Minion extends Card{
     @JsonIgnore
     private int row;
 
+    @JsonIgnore
+    private boolean isFrozen = false;
+
     public Minion(CardInput input) {
         super(input);
         attackDamage = input.getAttackDamage();
@@ -50,6 +53,13 @@ public class Minion extends Card{
 
     public void setRow(int row) {
         this.row = row;
+    }
+    public boolean isFrozen() {
+        return isFrozen;
+    }
+
+    public void setFrozen(boolean frozen) {
+        isFrozen = frozen;
     }
 
     @Override

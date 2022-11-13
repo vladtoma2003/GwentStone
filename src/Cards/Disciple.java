@@ -7,11 +7,13 @@ public class Disciple extends Minion {
     public Disciple(CardInput input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
 
     public Disciple(Minion input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
 
 //    public Disciple(Disciple d) {

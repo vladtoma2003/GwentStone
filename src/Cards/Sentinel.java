@@ -7,11 +7,13 @@ public class Sentinel extends Minion {
     public Sentinel(CardInput input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
 
     public Sentinel(Minion input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
 
 //    public Sentinel(Sentinel s) {

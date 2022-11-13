@@ -7,7 +7,6 @@ import fileio.Input;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 import static java.util.Collections.shuffle;
 
@@ -91,6 +90,8 @@ public class Game {
         }
         PickUpCard(players, 0);
         PickUpCard(players, 1);
+
+        table.setFrozenFalse();
 //        System.out.println("Runda " + round);
     }
 
@@ -108,15 +109,6 @@ public class Game {
         return arr;
     }
 
-    public Card getCardAtPosition (Table table, int x, int y) {
-        int pos = 4-x;
-        int r = 3-y;
-
-        ArrayList<Card> row = table.getRow(y);
-        Card carte = new Card(row.get(x));
-
-        return carte;
-    }
 
     public void switchTurns() {
         ++turnsThisGame;

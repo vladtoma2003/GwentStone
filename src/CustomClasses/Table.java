@@ -1,15 +1,22 @@
 package CustomClasses;
 
 import Cards.Card;
+import Cards.Environment;
 import Cards.Minion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Table {
 
     private ArrayList<Card>[] table;
     private int currTurn;
     private final int bound = 5;
+
+    public Table(ArrayList<Card>[] tabel) {
+        tabel = table.clone();
+    }
 
     public Table(int curr_turn) {
         table = new ArrayList[4];
@@ -71,6 +78,89 @@ public class Table {
     public ArrayList<Card> getRow(int row) {
         ArrayList<Card> ret = new ArrayList<>(table[row]);
         return ret;
+    }
+
+    public void PrintTable() {
+        ArrayList<Card>[] masa = table.clone();
+        for(var tabel : masa) {
+            Collections.reverse(tabel); // solutie momentan, cand trebuie data pozitia 5-poz pt pozitia corecta
+        }
+        String string0 = masa[0].toString();
+        String string1 = masa[1].toString();
+        String string2 = masa[2].toString();
+        String string3 = masa[3].toString();
+        System.out.println(string0 + "\n" + string1 + "\n" + string2 + "\n" + string3);
+    }
+    public Card getCardAtPosition (int x, int y) {
+//        System.out.println("x=" + x + " y= " + y);
+//        PrintTable();
+        if(table == null) {
+            return null;
+        }
+        if(x > 3) {
+            return null;
+        }
+        int size = table[x].size();
+        if(y >= size) {
+            return null;
+        }
+        int pos = size - y - 1;
+        Card ret = new Card(table[x].get(pos));
+        return ret;
+    }
+
+    public void useEnvCard(Player player, int idx, int row) {
+        Environment card = (Environment) player.getHand().get(idx);
+        switch(card.getName()) {
+            case "Firestorm":
+                for(int i = 0; i < table[row].size(); ++i) {
+                    Minion curr_card = (Minion)table[row].get(i);
+                    curr_card.setHealth(curr_card.getHealth() - 1);
+                    checkHealth();
+                }
+                break;
+            case "Winterfell":
+                Minion c;
+                for(int i = 0; i < table[row].size(); ++i) {
+                    c = (Minion) table[row].get(i);
+                    c.setFrozen(true);
+                }
+                break;
+            case "Heart Hound":
+                Minion stolenCard = (Minion)table[row].get(0);
+                for(int i = 1; i < table[row].size(); ++i) {
+                    Minion minion = (Minion) table[row].get(i);
+                    if(stolenCard.getHealth() > minion.getHealth()) {
+                        stolenCard = minion;
+                    }
+                }
+                int newRow = 3-row;
+                table[row].remove(stolenCard);
+                table[newRow].add(stolenCard);
+                System.out.println(stolenCard.toString());
+                break;
+        }
+        player.getHand().remove(card);
+    }
+
+    public void checkHealth() {
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < table[i].size(); ++j) {
+                Minion card = (Minion) table[i].get(j);
+                if(card.getHealth() <= 0) {
+                    table[i].remove(card);
+                }
+            }
+        }
+    }
+
+    public void setFrozenFalse() {
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < table[i].size(); ++j) {
+                Minion card = (Minion) table[i].get(j);
+                card.setFrozen(false);
+            }
+        }
     }
 
     public ArrayList<Card>[] getTable() {

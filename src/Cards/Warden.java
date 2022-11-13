@@ -7,11 +7,13 @@ public class Warden extends Minion{
     public Warden(CardInput input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
 
     public Warden(Minion input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
 
 //    public Warden(Warden w) {

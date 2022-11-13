@@ -1,5 +1,7 @@
 package Cards;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import fileio.CardInput;
 
 import java.util.ArrayList;

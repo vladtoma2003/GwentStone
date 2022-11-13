@@ -12,7 +12,8 @@
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj",
     "attackDamage" : 4,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   } ]
 }, {
   "command" : "getCardsInHand",
@@ -23,21 +24,24 @@
     "colors" : [ "Red", "Purple" ],
     "name" : "Goliath",
     "attackDamage" : 2,
-    "health" : 7
+    "health" : 7,
+    "frozen" : false
   }, {
     "mana" : 4,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj",
     "attackDamage" : 4,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
     "colors" : [ "Black", "White", "Green" ],
     "name" : "Warden",
     "attackDamage" : 2,
-    "health" : 5
+    "health" : 5,
+    "frozen" : false
   } ]
 }, {
   "command" : "getPlayerTurn",
@@ -64,14 +68,16 @@
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper",
     "attackDamage" : 6,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
     "colors" : [ "Brown", "Black", "Grey" ],
     "name" : "Goliath",
     "attackDamage" : 1,
-    "health" : 8
+    "health" : 8,
+    "frozen" : false
   } ]
 }, {
   "command" : "getCardsInHand",
@@ -82,14 +88,16 @@
     "colors" : [ "Red", "Purple" ],
     "name" : "Goliath",
     "attackDamage" : 2,
-    "health" : 7
+    "health" : 7,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper",
     "attackDamage" : 6,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   } ]
 }, {
   "command" : "getPlayerTurn",
@@ -125,70 +133,80 @@
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper",
     "attackDamage" : 6,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 5,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj",
     "attackDamage" : 4,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 4,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper",
     "attackDamage" : 6,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
     "colors" : [ "Brown", "Black", "Grey" ],
     "name" : "Goliath",
     "attackDamage" : 1,
-    "health" : 8
+    "health" : 8,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Black", "Yellow" ],
     "name" : "The Ripper",
     "attackDamage" : 5,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   } ], [ {
     "mana" : 3,
     "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
     "colors" : [ "Black", "White", "Green" ],
     "name" : "Warden",
     "attackDamage" : 2,
-    "health" : 5
+    "health" : 5,
+    "frozen" : false
   }, {
     "mana" : 4,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj",
     "attackDamage" : 4,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   }, {
     "mana" : 2,
     "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden",
     "attackDamage" : 3,
-    "health" : 6
+    "health" : 6,
+    "frozen" : false
   }, {
     "mana" : 4,
     "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
     "colors" : [ "Red", "Purple" ],
     "name" : "Goliath",
     "attackDamage" : 2,
-    "health" : 7
+    "health" : 7,
+    "frozen" : false
   }, {
     "mana" : 4,
     "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
     "colors" : [ "Red", "Purple" ],
     "name" : "Goliath",
     "attackDamage" : 1,
-    "health" : 7
+    "health" : 7,
+    "frozen" : false
   } ], [ ] ]
 }, {
   "command" : "getCardsInHand",
@@ -204,7 +222,8 @@
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden",
     "attackDamage" : 3,
-    "health" : 5
+    "health" : 5,
+    "frozen" : false
   } ]
 }, {
   "command" : "getCardsInHand",
@@ -215,7 +234,8 @@
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper",
     "attackDamage" : 6,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 2,
     "description" : "Standard card: The days are cold and so are we. We hope we can close our eyes again.",

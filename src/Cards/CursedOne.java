@@ -7,10 +7,12 @@ public class CursedOne extends Minion {
     public CursedOne(CardInput input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
     public CursedOne(Minion input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
 
 //    public CursedOne(CursedOne c) {

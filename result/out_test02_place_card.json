@@ -7,14 +7,16 @@
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj",
     "attackDamage" : 4,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   }, {
     "mana" : 2,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple",
     "attackDamage" : 0,
-    "health" : 2
+    "health" : 2,
+    "frozen" : false
   } ]
 }, {
   "command" : "getCardsInHand",
@@ -25,14 +27,16 @@
     "colors" : [ "Black", "White", "Red" ],
     "name" : "The Cursed One",
     "attackDamage" : 0,
-    "health" : 1
+    "health" : 1,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
     "colors" : [ "Black", "White", "Green" ],
     "name" : "Warden",
     "attackDamage" : 3,
-    "health" : 5
+    "health" : 5,
+    "frozen" : false
   } ]
 }, {
   "command" : "getPlayerTurn",
@@ -46,14 +50,16 @@
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple",
     "attackDamage" : 0,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   }, {
     "mana" : 2,
     "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel",
     "attackDamage" : 1,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   } ]
 }, {
   "command" : "getCardsInHand",
@@ -64,7 +70,8 @@
     "colors" : [ "Purple", "Yellow" ],
     "name" : "Berserker",
     "attackDamage" : 3,
-    "health" : 2
+    "health" : 2,
+    "frozen" : false
   } ]
 }, {
   "command" : "getPlayerTurn",
@@ -88,63 +95,72 @@
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple",
     "attackDamage" : 0,
-    "health" : 2
+    "health" : 2,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple",
     "attackDamage" : 0,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   } ], [ {
     "mana" : 3,
     "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
     "colors" : [ "Black", "White", "Green" ],
     "name" : "Warden",
     "attackDamage" : 3,
-    "health" : 6
+    "health" : 6,
+    "frozen" : false
   }, {
     "mana" : 4,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj",
     "attackDamage" : 4,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   } ], [ {
     "mana" : 3,
     "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
     "colors" : [ "Black", "White", "Green" ],
     "name" : "Warden",
     "attackDamage" : 3,
-    "health" : 5
+    "health" : 5,
+    "frozen" : false
   } ], [ {
     "mana" : 1,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel",
     "attackDamage" : 1,
-    "health" : 2
+    "health" : 2,
+    "frozen" : false
   }, {
     "mana" : 3,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
     "colors" : [ "Black", "White", "Red" ],
     "name" : "The Cursed One",
     "attackDamage" : 0,
-    "health" : 1
+    "health" : 1,
+    "frozen" : false
   }, {
     "mana" : 2,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
     "colors" : [ "Yellow", "White" ],
     "name" : "Disciple",
     "attackDamage" : 0,
-    "health" : 2
+    "health" : 2,
+    "frozen" : false
   }, {
     "mana" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
     "colors" : [ "Purple", "Yellow" ],
     "name" : "Berserker",
     "attackDamage" : 3,
-    "health" : 2
+    "health" : 2,
+    "frozen" : false
   } ] ]
 }, {
   "command" : "getCardsInHand",
@@ -155,14 +171,16 @@
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel",
     "attackDamage" : 1,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker",
     "attackDamage" : 2,
-    "health" : 1
+    "health" : 1,
+    "frozen" : false
   } ]
 }, {
   "command" : "getCardsInHand",
@@ -191,6 +209,7 @@
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker",
     "attackDamage" : 3,
-    "health" : 2
+    "health" : 2,
+    "frozen" : false
   } ]
 } ]

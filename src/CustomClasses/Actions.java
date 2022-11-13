@@ -17,6 +17,7 @@ public class Actions {
         game.switchTurns();
         if(game.getTurnsThisGame() % 2 == 0) {
             game.NewRound();
+            game.getTable().checkHealth();
         }
 
     }
@@ -88,9 +89,13 @@ public class Actions {
                             putPOJO("output", ret);
                     break;
                 case "getCardAtPosition":
-                    Card carte = game.getCardAtPosition(game.getTable(), actions.getX(), actions.getY());
-                    output.addObject().put("command", "getEnvironmentCardsInHand").
+                    Card carte = game.getTable().getCardAtPosition(actions.getX(), actions.getY());
+                    output.addObject().put("command", "getCardAtPosition").
                             putPOJO("output", carte);
+                    break;
+                case "useEnvironmentCard":
+                    game.getTable().useEnvCard(game.getPlayers().get(game.getTable().getCurrTurn()),
+                            actions.getHandIdx(), actions.getAffectedRow());
                     break;
 
             }

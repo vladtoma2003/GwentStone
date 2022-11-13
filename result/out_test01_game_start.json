@@ -7,14 +7,16 @@
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj",
     "attackDamage" : 4,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   }, {
     "mana" : 2,
     "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
     "colors" : [ "Black", "White", "Red" ],
     "name" : "The Cursed One",
     "attackDamage" : 0,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 2,
     "description" : "Premium card: All is white. My mouth is frozen and I must scream.",
@@ -26,7 +28,8 @@
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden",
     "attackDamage" : 3,
-    "health" : 5
+    "health" : 5,
+    "frozen" : false
   } ]
 }, {
   "command" : "getPlayerDeck",
@@ -37,7 +40,8 @@
     "colors" : [ "Yellow", "White" ],
     "name" : "Disciple",
     "attackDamage" : 0,
-    "health" : 4
+    "health" : 4,
+    "frozen" : false
   }, {
     "mana" : 1,
     "description" : "Standard card: The days are cold and so are we. We hope we can close our eyes again.",
@@ -49,14 +53,16 @@
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel",
     "attackDamage" : 2,
-    "health" : 3
+    "health" : 3,
+    "frozen" : false
   }, {
     "mana" : 4,
     "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
     "colors" : [ "Red", "Purple" ],
     "name" : "Goliath",
     "attackDamage" : 1,
-    "health" : 7
+    "health" : 7,
+    "frozen" : false
   } ]
 }, {
   "command" : "getPlayerHero",

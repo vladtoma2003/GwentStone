@@ -8,10 +8,12 @@ public class Miraj extends Minion{
     public Miraj(CardInput input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
     public Miraj(Minion input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
 
 //    public Miraj(Miraj m) {

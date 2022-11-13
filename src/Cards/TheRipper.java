@@ -8,11 +8,13 @@ public class TheRipper extends Minion {
     public TheRipper(CardInput input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
 
     public TheRipper(Minion input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
 
 //    public TheRipper(TheRipper r) {

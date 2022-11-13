@@ -7,14 +7,6 @@ public class Environment extends Card {
         super(input);
     }
 
-//    public Environment(Environment e) {
-//        Environment ev = new Environment();
-//        ev.setName(e.getName());
-//        ev.setMana(e.getMana());
-//        ev.setDescription(e.getDescription());
-//        ev.setColors(e.getColors());
-//    }
-
     public Environment() {
 
     }

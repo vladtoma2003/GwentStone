@@ -9,11 +9,13 @@ public class Berserker extends Minion {
     public Berserker(CardInput input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
 
     public Berserker(Minion input) {
         super(input);
         setRow(0);
+        setFrozen(false);
     }
 
 //    public Berserker(Berserker b) {

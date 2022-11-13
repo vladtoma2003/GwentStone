@@ -8,11 +8,13 @@ public class Goliath extends Minion{
     public Goliath(CardInput input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
 
     public Goliath(Minion input) {
         super(input);
         setRow(1);
+        setFrozen(false);
     }
 
 //    public Goliath(Goliath g) {

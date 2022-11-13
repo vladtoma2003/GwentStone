@@ -1,4 +1,4 @@
-package CustomClasses;
+package Cards;
 
 import Cards.Card;
 import fileio.CardInput;
