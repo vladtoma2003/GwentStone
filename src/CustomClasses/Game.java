@@ -94,6 +94,30 @@ public class Game {
 //        System.out.println("Runda " + round);
     }
 
+    public ArrayList<Card> getEnvInHand(ArrayList<Card> hand) {
+
+        ArrayList<Card> arr = new ArrayList<>(hand);
+        for(var card:hand) {
+            if (!(card.getName().equals("Winterfell") ||
+                    card.getName().equals("Firestorm") ||
+                    card.getName().equals("Heart Hound"))) {
+                arr.remove(card);
+            }
+        }
+
+        return arr;
+    }
+
+    public Card getCardAtPosition (Table table, int x, int y) {
+        int pos = 4-x;
+        int r = 3-y;
+
+        ArrayList<Card> row = table.getRow(y);
+        Card carte = new Card(row.get(x));
+
+        return carte;
+    }
+
     public void switchTurns() {
         ++turnsThisGame;
         table.setCurrTurn((table.getCurrTurn()+1)%2);

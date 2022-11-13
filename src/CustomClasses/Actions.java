@@ -76,11 +76,22 @@ public class Actions {
                 case "getCardsOnTable":
                     var table = game.getTable().getTable();
                     for(var tabel:table) {
-                        Collections.reverse(tabel); // solutie momentan
+                        Collections.reverse(tabel); // solutie momentan, cand trebuie data pozitia 5-poz pt pozitia corecta
                     }
-
                     output.addObject().put("command", "getCardsOnTable").
                             putPOJO("output", table);
+                    break;
+                case "getEnvironmentCardsInHand":
+                    ArrayList<Card> ret = game.getEnvInHand(game.getEnvInHand(game.getPlayers().get(actions.getPlayerIdx()).getHand()));
+                    output.addObject().put("command", "getEnvironmentCardsInHand").
+                            put("PlayerIdx", actions.getPlayerIdx()).
+                            putPOJO("output", ret);
+                    break;
+                case "getCardAtPosition":
+                    Card carte = game.getCardAtPosition(game.getTable(), actions.getX(), actions.getY());
+                    output.addObject().put("command", "getEnvironmentCardsInHand").
+                            putPOJO("output", carte);
+                    break;
 
             }
         }

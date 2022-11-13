@@ -68,6 +68,10 @@ public class Table {
         table[row].add(0, card);
     }
 
+    public ArrayList<Card> getRow(int row) {
+        ArrayList<Card> ret = new ArrayList<>(table[row]);
+        return ret;
+    }
 
     public ArrayList<Card>[] getTable() {
         return table;
