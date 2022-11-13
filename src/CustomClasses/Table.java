@@ -145,12 +145,13 @@ public class Table {
 
     public void checkHealth() {
         for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < table[i].size(); ++j) {
-                Minion card = (Minion) table[i].get(j);
+            for(var c : table[i]) {
+                Minion card = (Minion) c;
                 if(card.getHealth() <= 0) {
                     table[i].remove(card);
                 }
             }
+
         }
     }
 
