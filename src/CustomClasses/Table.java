@@ -190,6 +190,12 @@ public class Table {
 
     }
 
+    public void Attack(int x1, int y1, int x2, int y2) {
+        Minion attacker = table[x1].get(table[x1].size()-y1-1);
+        Minion attacked = table[x2].get(table[x2].size()-y2-1);
+        attacked.setHealth(attacked.getHealth() - attacker.getAttackDamage());
+    }
+
     public void checkHealth() {
         for(int i = 0; i < 4; ++i) {
             ArrayList<Minion> row = new ArrayList<>(table[i]);

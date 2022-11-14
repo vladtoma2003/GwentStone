@@ -115,6 +115,11 @@ public class Actions {
                     output.addObject().put("command", "getFrozenCardsOnTable").
                             putPOJO("output", altceva);
                     break;
+                case "cardUsesAttack":
+                    var attacker = actions.getCardAttacker();
+                    var attacked = actions.getCardAttacked();
+                    game.getTable().Attack(attacker.getX(), attacker.getY(), attacked.getX(), attacked.getY() );
+                    break;
 
             }
         }
