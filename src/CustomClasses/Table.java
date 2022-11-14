@@ -58,10 +58,7 @@ public class Table {
             }
         }
         int mana = card.getMana();
-//        System.out.println(p.getMana() + " " + mana);
-//        System.out.println(card.toString());
         if(mana > p.getMana()) {
-            System.out.println("EROARE:" + p.getMana() + mana);
             err.setErr(true);
             err.setMessage("Not enough mana to place card on table.");
             return;
@@ -73,7 +70,7 @@ public class Table {
         }
         p.setMana(p.getMana()-mana);
         p.getHand().remove(idx);
-        table[row].add(0, card);
+        table[row].add(card);
     }
 
     public ArrayList<Card> getRow(int row) {
@@ -83,9 +80,6 @@ public class Table {
 
     public void PrintTable() {
         ArrayList<Minion>[] masa = table.clone();
-        for(var tabel : masa) {
-            Collections.reverse(tabel); // solutie momentan, cand trebuie data pozitia 5-poz pt pozitia corecta
-        }
         String string0 = masa[0].toString();
         String string1 = masa[1].toString();
         String string2 = masa[2].toString();
@@ -105,13 +99,12 @@ public class Table {
             err.setMessage("No card available at that position.");
             return null;
         }
-        int pos = size - y - 1;
-        if(pos >= table[x].size()) {
+        if(y >= table[x].size()) {
             err.setErr(true);
             err.setMessage("No card available at that position.");
             return null;
         }
-        Minion ret = new Minion(table[x].get(pos));
+        Minion ret = new Minion(table[x].get(y));
         return ret;
     }
 
@@ -174,7 +167,6 @@ public class Table {
                 }
                 table[row].remove(stolenCard);
                 table[newRow].add(stolenCard);
-                System.out.println(stolenCard.toString());
                 break;
         }
         player.getHand().remove(card);
@@ -196,17 +188,15 @@ public class Table {
     }
 
     public void Attack(int x1, int y1, int x2, int y2, Error err) {
-        Minion attacker = table[x1].get(table[x1].size()-y1-1);
-        Minion attacked = table[x2].get(table[x2].size()-y2-1);
+        Minion attacker = table[x1].get(y1);
+        Minion attacked = table[x2].get(y2);
         if(currTurn == 1) {
             if(x2 < 2) {
-                System.out.println("primul if");
                 err.setErr(true);
                 err.setMessage("Attacked card does not belong to the enemy.");
                 return;
             }
         } else {
-            System.out.println("primul if");
             if(x2 > 1) {
                 err.setErr(true);
                 err.setMessage("Attacked card does not belong to the enemy.");
@@ -214,19 +204,16 @@ public class Table {
             }
         }
         if(attacker.isHasAttacked()) {
-            System.out.println("2 if");
             err.setErr(true);
             err.setMessage("Attacker card has already attacked this turn.");
             return;
         }
         if(attacker.isFrozen()) {
-            System.out.println("3 if");
             err.setErr(true);
             err.setMessage("Attacker card is frozen.");
             return;
         }
-        if(!attacked.isTank() && isTankPresent()) {
-            System.out.println("4 if");
+        if(!attacked.isTank() && isEnemyTank()) {
             err.setErr(true);
             err.setMessage("Attacked card is not of type 'Tank’.");
             return;
@@ -236,28 +223,21 @@ public class Table {
         checkHealth();
     }
 
-    public boolean isTankPresent() {
-        if(currTurn == 2) {
-            for (int i = 0; i < 2; ++i) {
-                ArrayList<Minion> row = table[i];
-                for (var c : row) {
-                    if (c.isTank()) {
-                        return true;
-                    }
+    public boolean isEnemyTank() {
+        if(currTurn == 0) {
+            for(var c: table[1]) {
+                if(c.isTank()){
+                    return true;
                 }
             }
-            return false;
         } else {
-            for (int i = 2; i < 4; ++i) {
-                ArrayList<Minion> row = table[i];
-                for (var c : row) {
-                    if (c.isTank()) {
-                        return true;
-                    }
+            for(var c:table[2]) {
+                if(c.isTank()){
+                    return true;
                 }
             }
-            return false;
         }
+        return false;
     }
 
     public void resetAttacks() {

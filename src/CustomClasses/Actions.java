@@ -38,7 +38,6 @@ public class Actions {
 
     public static void Command(Game game, ArrayList<ActionsInput> commands, ArrayNode output) {
         for (ActionsInput actions : commands) {
-//            System.out.println(actions.getCommand().toString());
             switch (actions.getCommand()) {
                 case "getPlayerDeck":
                     var deck = game.getPlayers().get(actions.getPlayerIdx() - 1).getDeck();
@@ -85,9 +84,6 @@ public class Actions {
                     break;
                 case "getCardsOnTable":
                     var table = game.getTable().getTable();
-                    for(var tabel:table) {
-                        Collections.reverse(tabel); // solutie momentan, cand trebuie data pozitia 5-poz pt pozitia corecta
-                    }
                     output.addObject().put("command", "getCardsOnTable").
                             putPOJO("output", table);
                     break;
@@ -101,7 +97,6 @@ public class Actions {
                 case "getCardAtPosition":
                     Minion carte = game.getTable().getCardAtPosition(actions.getX(), actions.getY(), game.getErr());
                     if(carte == null){
-                        System.out.println("EROARE LA GET CARD POSITION");
                         output.addObject().put("command", "getCardAtPosition").
                                 put("x", actions.getX()).
                                 put("y", actions.getY()).
@@ -136,9 +131,11 @@ public class Actions {
                     var attacked = actions.getCardAttacked();
                     game.getTable().Attack(attacker.getX(), attacker.getY(), attacked.getX(), attacked.getY(), game.getErr());
                     if(game.getErr().getErr()) {
-                        output.addObject().putPOJO("cardAttacked", attacked).
+//                        System.out.println("Attacker\n" + attacker.toString());
+//                        System.out.println("Attacked\n" + attacked.toString());
+                        output.addObject().put("command", "cardUsesAttack").
                                 putPOJO("cardAttacker", attacker).
-                                put("command", "cardUsesAttack").
+                                putPOJO("cardAttacked", attacked).
                                 put("error", game.getErr().getMessage());
                     }
                     game.ResetError(game.getErr());
