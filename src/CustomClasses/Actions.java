@@ -71,7 +71,19 @@ public class Actions {
                     break;
                 case "getCardsInHand":
                     var curr_hand = game.getPlayers().get(actions.getPlayerIdx() - 1).getHand();
-                    var hand = new ArrayList<>(curr_hand);
+                    var hand = new ArrayList<>();
+                    for(var c:curr_hand) {
+                        if (c.getName().equals("Winterfell") ||
+                                c.getName().equals("Firestorm") ||
+                                c.getName().equals("Heart Hound")) {
+                            Environment env = new Environment(c);
+                            hand.add(env);
+                        } else {
+                            Minion mini = (Minion) c;
+                            Minion newMini = new Minion(mini);
+                            hand.add(newMini);
+                        }
+                    }
                     output.addObject().put("command", "getCardsInHand").
                             put("playerIdx", actions.getPlayerIdx()).
                             putPOJO("output", hand);
@@ -131,8 +143,6 @@ public class Actions {
                     var attacked = actions.getCardAttacked();
                     game.getTable().Attack(attacker.getX(), attacker.getY(), attacked.getX(), attacked.getY(), game.getErr());
                     if(game.getErr().getErr()) {
-//                        System.out.println("Attacker\n" + attacker.toString());
-//                        System.out.println("Attacked\n" + attacked.toString());
                         output.addObject().put("command", "cardUsesAttack").
                                 putPOJO("cardAttacker", attacker).
                                 putPOJO("cardAttacked", attacked).

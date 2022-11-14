@@ -215,7 +215,7 @@ public class Table {
         }
         if(!attacked.isTank() && isEnemyTank()) {
             err.setErr(true);
-            err.setMessage("Attacked card is not of type 'Tank’.");
+            err.setMessage("Attacked card is not of type 'Tank'.");
             return;
         }
         attacked.setHealth(attacked.getHealth() - attacker.getAttackDamage());
