@@ -7,21 +7,22 @@ import Cards.Minion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class Table {
 
-    private ArrayList<Card>[] table;
+    private ArrayList<Minion>[] table;
     private int currTurn;
     private final int bound = 5;
 
-    public Table(ArrayList<Card>[] tabel) {
+    public Table(ArrayList<Minion>[] tabel) {
         tabel = table.clone();
     }
 
     public Table(int curr_turn) {
         table = new ArrayList[4];
         for(int i = 0; i < 4; ++i) {
-            table[i] = new ArrayList<Card>();
+            table[i] = new ArrayList<Minion>();
         }
         currTurn = curr_turn;
     }
@@ -81,7 +82,7 @@ public class Table {
     }
 
     public void PrintTable() {
-        ArrayList<Card>[] masa = table.clone();
+        ArrayList<Minion>[] masa = table.clone();
         for(var tabel : masa) {
             Collections.reverse(tabel); // solutie momentan, cand trebuie data pozitia 5-poz pt pozitia corecta
         }
@@ -91,7 +92,7 @@ public class Table {
         String string3 = masa[3].toString();
         System.out.println(string0 + "\n" + string1 + "\n" + string2 + "\n" + string3);
     }
-    public Card getCardAtPosition (int x, int y) {
+    public Minion getCardAtPosition (int x, int y) {
 //        System.out.println("x=" + x + " y= " + y);
 //        PrintTable();
         if(table == null) {
@@ -105,19 +106,33 @@ public class Table {
             return null;
         }
         int pos = size - y - 1;
-        Card ret = new Card(table[x].get(pos));
+        Minion ret = new Minion(table[x].get(pos));
         return ret;
     }
 
-    public void useEnvCard(Player player, int idx, int row) {
-        Environment card = (Environment) player.getHand().get(idx);
+    public void useEnvCard(Player player, int idx, int row, Error err) {
+        Card card = player.getHand().get(idx);
+//        Environment card = (Environment) player.getHand().get(idx);
+        if(player.getPlayerIdx() == 1) {
+            if(row > 1) {
+                err.setErr(true);
+                err.setMessage("Chosen row does not belong to the enemy.");
+                return;
+            }
+        } else {
+            if(row < 2) {
+                err.setErr(true);
+                err.setMessage("Chosen row does not belong to the enemy.");
+                return;
+            }
+        }
         switch(card.getName()) {
             case "Firestorm":
                 for(int i = 0; i < table[row].size(); ++i) {
                     Minion curr_card = (Minion)table[row].get(i);
                     curr_card.setHealth(curr_card.getHealth() - 1);
-                    checkHealth();
                 }
+                checkHealth();
                 break;
             case "Winterfell":
                 Minion c;
@@ -135,22 +150,41 @@ public class Table {
                     }
                 }
                 int newRow = 3-row;
+                if(isFullRow(newRow)) {
+                    err.setErr(true);
+                    err.setMessage("Cannot steal enemy card since the player's row is full.");
+                    return ;
+                }
                 table[row].remove(stolenCard);
                 table[newRow].add(stolenCard);
                 System.out.println(stolenCard.toString());
                 break;
+            default:
+                err.setErr(true);
+                err.setMessage("Chosen card is not of type environment.");
+                return;
+        }
+        if(card.getMana() > player.getMana()) {
+            err.setErr(true);
+            err.setMessage("Not enough mana to use environment card.");
+            return;
         }
         player.getHand().remove(card);
+        player.setMana(player.getMana() - card.getMana());
     }
 
     public void checkHealth() {
-        for(int i = 0; i < 3; ++i) {
-            for(var c : table[i]) {
-                Minion card = (Minion) c;
+        for(int i = 0; i < 4; ++i) {
+            ArrayList<Minion> row = new ArrayList<>(table[i]);
+            int j = 0;
+            while(j < table[i].size()){
+                Minion card = (Minion) table[i].get(j);
                 if(card.getHealth() <= 0) {
-                    table[i].remove(card);
+                    row.remove(card);
                 }
+                ++j;
             }
+            table[i] = row;
         }
     }
 
@@ -163,11 +197,11 @@ public class Table {
         }
     }
 
-    public ArrayList<Card>[] getTable() {
+    public ArrayList<Minion>[] getTable() {
         return table;
     }
 
-    public void setTable(ArrayList<Card>[] table) {
+    public void setTable(ArrayList<Minion>[] table) {
         this.table = table;
     }
 

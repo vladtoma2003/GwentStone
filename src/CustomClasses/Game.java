@@ -55,7 +55,6 @@ public class Game {
         err = new Error();
 
         table = new Table(input.getStartGame().getStartingPlayer());
-
     }
 
     public void ResetError(Error err) {
@@ -67,16 +66,17 @@ public class Game {
         shuffle(players.get(0).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
         shuffle(players.get(1).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
 
-        PickUpCard(players, 0);
-        PickUpCard(players, 1);
+        players.get(0).getHand().add(PickUpCard(players, 0));
+        players.get(1).getHand().add(PickUpCard(players, 1));
 
         table.setCurrTurn(input.getStartGame().getStartingPlayer() - 1);
-//        System.out.println("Starting turn:" + input.getStartGame().getStartingPlayer());
     }
-    public void PickUpCard(ArrayList<Player> players, int idx) {
+    public Card PickUpCard(ArrayList<Player> players, int idx) {
         var deck = new ArrayList<>(players.get(idx).getDeck());
-        getPlayers().get(idx).getHand().add(deck.get(0));
+//        getPlayers().get(idx).getHand().add(deck.get(0));
+        var card = deck.get(0);
         getPlayers().get(idx).getDeck().remove(0);
+        return card;
     }
 
     public void NewRound() {
@@ -88,21 +88,21 @@ public class Game {
             players.get(0).setMana(players.get(0).getMana() + 10);
             players.get(1).setMana(players.get(1).getMana() + 10);
         }
-        PickUpCard(players, 0);
-        PickUpCard(players, 1);
+        players.get(0).getHand().add(PickUpCard(players, 0));
+        players.get(1).getHand().add(PickUpCard(players, 1));
+
 
         table.setFrozenFalse();
-//        System.out.println("Runda " + round);
     }
 
     public ArrayList<Card> getEnvInHand(ArrayList<Card> hand) {
-
-        ArrayList<Card> arr = new ArrayList<>(hand);
+        ArrayList<Card> arr = new ArrayList<>();
         for(var card:hand) {
-            if (!(card.getName().equals("Winterfell") ||
+            if ((card.getName().equals("Winterfell") ||
                     card.getName().equals("Firestorm") ||
                     card.getName().equals("Heart Hound"))) {
-                arr.remove(card);
+                Card carte = new Card(card);
+                arr.add(carte);
             }
         }
 

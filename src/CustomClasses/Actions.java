@@ -1,6 +1,8 @@
 package CustomClasses;
 
 import Cards.Card;
+import Cards.Environment;
+import Cards.Minion;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import fileio.ActionsInput;
@@ -17,7 +19,6 @@ public class Actions {
         game.switchTurns();
         if(game.getTurnsThisGame() % 2 == 0) {
             game.NewRound();
-            game.getTable().checkHealth();
         }
 
     }
@@ -33,7 +34,8 @@ public class Actions {
 //            System.out.println(actions.getCommand().toString());
             switch (actions.getCommand()) {
                 case "getPlayerDeck":
-                    var curr_deck = game.getPlayers().get(actions.getPlayerIdx() - 1).getDeck();
+                    var deck = game.getPlayers().get(actions.getPlayerIdx() - 1).getDeck();
+                    var curr_deck = new ArrayList<Card>(deck);
                     output.addObject().put("command", "getPlayerDeck").
                             put("playerIdx", actions.getPlayerIdx()).
                             putPOJO("output", curr_deck);
@@ -83,19 +85,31 @@ public class Actions {
                             putPOJO("output", table);
                     break;
                 case "getEnvironmentCardsInHand":
-                    ArrayList<Card> ret = game.getEnvInHand(game.getEnvInHand(game.getPlayers().get(actions.getPlayerIdx()).getHand()));
+                    ArrayList<Card> ceva = game.getEnvInHand(game.getPlayers().get(actions.getPlayerIdx() - 1).getHand());
+                    ArrayList<Card> ret = new ArrayList<>(ceva);
                     output.addObject().put("command", "getEnvironmentCardsInHand").
-                            put("PlayerIdx", actions.getPlayerIdx()).
+                            put("playerIdx", actions.getPlayerIdx()).
                             putPOJO("output", ret);
                     break;
                 case "getCardAtPosition":
-                    Card carte = game.getTable().getCardAtPosition(actions.getX(), actions.getY());
+                    Minion carte = (Minion) game.getTable().getCardAtPosition(actions.getX(), actions.getY());
                     output.addObject().put("command", "getCardAtPosition").
+                            put("x", actions.getX()).
+                            put("y", actions.getY()).
                             putPOJO("output", carte);
                     break;
                 case "useEnvironmentCard":
                     game.getTable().useEnvCard(game.getPlayers().get(game.getTable().getCurrTurn()),
-                            actions.getHandIdx(), actions.getAffectedRow());
+                            actions.getHandIdx(), actions.getAffectedRow(), game.getErr());
+                    if(game.getErr().getErr()) {
+                        output.addObject().put("command", "useEnvironmentCard").
+                                put("handIdx", actions.getHandIdx()).
+                                put("affectedRow", actions.getAffectedRow()).
+                                put("error", game.getErr().getMessage());
+                    }
+                    game.ResetError(game.getErr());
+                    break;
+                case "getFrozenCardsOnTable":
                     break;
 
             }

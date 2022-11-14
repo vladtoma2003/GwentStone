@@ -7,6 +7,10 @@ public class Environment extends Card {
         super(input);
     }
 
+    public Environment(Card input) {
+        super(input);
+    }
+
     public Environment() {
 
     }

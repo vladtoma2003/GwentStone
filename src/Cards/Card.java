@@ -64,5 +64,21 @@ public class Card {
     public void setName(String name) {
         this.name = name;
     }
+    @Override
+    public String toString() {
+        return "CardInput{"
+                +  "mana="
+                + getMana()
+                +  ", description='"
+                + getDescription()
+                + '\''
+                + ", colors="
+                + getColors()
+                + ", name='"
+                +  ""
+                + getName()
+                + '\''
+                + '}';
+    }
 
 }
