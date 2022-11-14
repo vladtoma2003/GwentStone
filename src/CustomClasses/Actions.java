@@ -110,6 +110,10 @@ public class Actions {
                     game.ResetError(game.getErr());
                     break;
                 case "getFrozenCardsOnTable":
+                    var arr = game.getTable().getFrozenCards();
+                    ArrayList<Minion> altceva = new ArrayList<>(arr);
+                    output.addObject().put("command", "getFrozenCardsOnTable").
+                            putPOJO("output", altceva);
                     break;
 
             }

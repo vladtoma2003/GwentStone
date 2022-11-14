@@ -113,6 +113,18 @@ public class Table {
     public void useEnvCard(Player player, int idx, int row, Error err) {
         Card card = player.getHand().get(idx);
 //        Environment card = (Environment) player.getHand().get(idx);
+        if (!(card.getName().equals("Winterfell") ||
+            card.getName().equals("Firestorm") ||
+            card.getName().equals("Heart Hound"))) {
+                err.setErr(true);
+                err.setMessage("Chosen card is not of type environment.");
+                return;
+        }
+        if(card.getMana() > player.getMana()) {
+            err.setErr(true);
+            err.setMessage("Not enough mana to use environment card.");
+            return;
+        }
         if(player.getPlayerIdx() == 1) {
             if(row > 1) {
                 err.setErr(true);
@@ -159,18 +171,23 @@ public class Table {
                 table[newRow].add(stolenCard);
                 System.out.println(stolenCard.toString());
                 break;
-            default:
-                err.setErr(true);
-                err.setMessage("Chosen card is not of type environment.");
-                return;
-        }
-        if(card.getMana() > player.getMana()) {
-            err.setErr(true);
-            err.setMessage("Not enough mana to use environment card.");
-            return;
         }
         player.getHand().remove(card);
         player.setMana(player.getMana() - card.getMana());
+    }
+
+    public ArrayList<Minion> getFrozenCards() {
+        ArrayList<Minion> arr = new ArrayList<>();
+        for(int i = 0; i <= 3; ++i) {
+            for(var c : table[i]) {
+                Minion ceva = (Minion) c;
+                if(ceva.isFrozen()) {
+                    arr.add(ceva);
+                }
+            }
+        }
+        return arr;
+
     }
 
     public void checkHealth() {
