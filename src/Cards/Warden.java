@@ -8,12 +8,14 @@ public class Warden extends Minion{
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(true);
     }
 
     public Warden(Minion input) {
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(true);
     }
 
 //    public Warden(Warden w) {

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fileio.CardInput;
 
 
-@JsonIgnoreProperties({ "frozen"})
+@JsonIgnoreProperties({ "frozen", "tank"})
 
 public class Minion extends Card{
     private int attackDamage;
@@ -14,7 +14,13 @@ public class Minion extends Card{
     private int row;
 
     @JsonIgnore
+    private boolean hasAttacked = false;
+
+    @JsonIgnore
     private boolean isFrozen = false;
+
+    @JsonIgnore
+    private boolean isTank;
 
     public Minion(CardInput input) {
         super(input);
@@ -64,6 +70,22 @@ public class Minion extends Card{
 
     public void setFrozen(boolean frozen) {
         isFrozen = frozen;
+    }
+
+    public boolean isHasAttacked() {
+        return hasAttacked;
+    }
+
+    public void setHasAttacked(boolean hasAttacked) {
+        this.hasAttacked = hasAttacked;
+    }
+
+    public boolean isTank() {
+        return isTank;
+    }
+
+    public void setTank(boolean tank) {
+        isTank = tank;
     }
 
     @Override

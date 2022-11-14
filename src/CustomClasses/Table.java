@@ -92,9 +92,7 @@ public class Table {
         String string3 = masa[3].toString();
         System.out.println(string0 + "\n" + string1 + "\n" + string2 + "\n" + string3);
     }
-    public Minion getCardAtPosition (int x, int y) {
-//        System.out.println("x=" + x + " y= " + y);
-//        PrintTable();
+    public Minion getCardAtPosition (int x, int y, Error err) {
         if(table == null) {
             return null;
         }
@@ -103,9 +101,16 @@ public class Table {
         }
         int size = table[x].size();
         if(y >= size) {
+            err.setErr(true);
+            err.setMessage("No card available at that position.");
             return null;
         }
         int pos = size - y - 1;
+        if(pos >= table[x].size()) {
+            err.setErr(true);
+            err.setMessage("No card available at that position.");
+            return null;
+        }
         Minion ret = new Minion(table[x].get(pos));
         return ret;
     }
@@ -141,7 +146,7 @@ public class Table {
         switch(card.getName()) {
             case "Firestorm":
                 for(int i = 0; i < table[row].size(); ++i) {
-                    Minion curr_card = (Minion)table[row].get(i);
+                    Minion curr_card = table[row].get(i);
                     curr_card.setHealth(curr_card.getHealth() - 1);
                 }
                 checkHealth();
@@ -149,14 +154,14 @@ public class Table {
             case "Winterfell":
                 Minion c;
                 for(int i = 0; i < table[row].size(); ++i) {
-                    c = (Minion) table[row].get(i);
+                    c =table[row].get(i);
                     c.setFrozen(true);
                 }
                 break;
             case "Heart Hound":
-                Minion stolenCard = (Minion)table[row].get(0);
+                Minion stolenCard = table[row].get(0);
                 for(int i = 1; i < table[row].size(); ++i) {
-                    Minion minion = (Minion) table[row].get(i);
+                    Minion minion =table[row].get(i);
                     if(stolenCard.getHealth() > minion.getHealth()) {
                         stolenCard = minion;
                     }
@@ -190,10 +195,78 @@ public class Table {
 
     }
 
-    public void Attack(int x1, int y1, int x2, int y2) {
+    public void Attack(int x1, int y1, int x2, int y2, Error err) {
         Minion attacker = table[x1].get(table[x1].size()-y1-1);
         Minion attacked = table[x2].get(table[x2].size()-y2-1);
+        if(currTurn == 1) {
+            if(x2 < 2) {
+                System.out.println("primul if");
+                err.setErr(true);
+                err.setMessage("Attacked card does not belong to the enemy.");
+                return;
+            }
+        } else {
+            System.out.println("primul if");
+            if(x2 > 1) {
+                err.setErr(true);
+                err.setMessage("Attacked card does not belong to the enemy.");
+                return;
+            }
+        }
+        if(attacker.isHasAttacked()) {
+            System.out.println("2 if");
+            err.setErr(true);
+            err.setMessage("Attacker card has already attacked this turn.");
+            return;
+        }
+        if(attacker.isFrozen()) {
+            System.out.println("3 if");
+            err.setErr(true);
+            err.setMessage("Attacker card is frozen.");
+            return;
+        }
+        if(!attacked.isTank() && isTankPresent()) {
+            System.out.println("4 if");
+            err.setErr(true);
+            err.setMessage("Attacked card is not of type 'Tank’.");
+            return;
+        }
         attacked.setHealth(attacked.getHealth() - attacker.getAttackDamage());
+        attacker.setHasAttacked(true);
+        checkHealth();
+    }
+
+    public boolean isTankPresent() {
+        if(currTurn == 2) {
+            for (int i = 0; i < 2; ++i) {
+                ArrayList<Minion> row = table[i];
+                for (var c : row) {
+                    if (c.isTank()) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } else {
+            for (int i = 2; i < 4; ++i) {
+                ArrayList<Minion> row = table[i];
+                for (var c : row) {
+                    if (c.isTank()) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
+    public void resetAttacks() {
+        for(int i = 0; i < 4; ++i) {
+            ArrayList<Minion> row = table[i];
+            for(var c : row) {
+                c.setHasAttacked(false);
+            }
+        }
     }
 
     public void checkHealth() {
@@ -211,11 +284,20 @@ public class Table {
         }
     }
 
-    public void setFrozenFalse() {
-        for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < table[i].size(); ++j) {
-                Minion card = (Minion) table[i].get(j);
-                card.setFrozen(false);
+    public void setFrozenFalse(int player) {
+        if(player == 0) {
+            for (int i = 0; i < 2; ++i) {
+                for (int j = 0; j < table[i].size(); ++j) {
+                    Minion card = table[i].get(j);
+                    card.setFrozen(false);
+                }
+            }
+        } else {
+            for (int i = 2; i < 4; ++i) {
+                for (int j = 0; j < table[i].size(); ++j) {
+                    Minion card = table[i].get(j);
+                    card.setFrozen(false);
+                }
             }
         }
     }

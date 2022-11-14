@@ -9,11 +9,13 @@ public class Miraj extends Minion{
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(false);
     }
     public Miraj(Minion input) {
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(false);
     }
 
 //    public Miraj(Miraj m) {

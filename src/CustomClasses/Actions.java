@@ -6,6 +6,7 @@ import Cards.Minion;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import fileio.ActionsInput;
+import fileio.Coordinates;
 import fileio.GameInput;
 
 import java.util.ArrayList;
@@ -16,9 +17,15 @@ import java.util.List;
 public class Actions {
 
     private static void endTurn(Game game) {
+        int currP = game.getTable().getCurrTurn();
         game.switchTurns();
         if(game.getTurnsThisGame() % 2 == 0) {
             game.NewRound();
+        }
+
+        if(currP == 0) {
+            game.getTable().setFrozenFalse(1);
+            game.getTable().resetAttacks();
         }
 
     }
@@ -92,11 +99,20 @@ public class Actions {
                             putPOJO("output", ret);
                     break;
                 case "getCardAtPosition":
-                    Minion carte = (Minion) game.getTable().getCardAtPosition(actions.getX(), actions.getY());
-                    output.addObject().put("command", "getCardAtPosition").
-                            put("x", actions.getX()).
-                            put("y", actions.getY()).
-                            putPOJO("output", carte);
+                    Minion carte = game.getTable().getCardAtPosition(actions.getX(), actions.getY(), game.getErr());
+                    if(carte == null){
+                        System.out.println("EROARE LA GET CARD POSITION");
+                        output.addObject().put("command", "getCardAtPosition").
+                                put("x", actions.getX()).
+                                put("y", actions.getY()).
+                                put("output", game.getErr().getMessage());
+                    } else {
+                        output.addObject().put("command", "getCardAtPosition").
+                                put("x", actions.getX()).
+                                put("y", actions.getY()).
+                                putPOJO("output", carte);
+                    }
+                    game.ResetError(game.getErr());
                     break;
                 case "useEnvironmentCard":
                     game.getTable().useEnvCard(game.getPlayers().get(game.getTable().getCurrTurn()),
@@ -118,7 +134,14 @@ public class Actions {
                 case "cardUsesAttack":
                     var attacker = actions.getCardAttacker();
                     var attacked = actions.getCardAttacked();
-                    game.getTable().Attack(attacker.getX(), attacker.getY(), attacked.getX(), attacked.getY() );
+                    game.getTable().Attack(attacker.getX(), attacker.getY(), attacked.getX(), attacked.getY(), game.getErr());
+                    if(game.getErr().getErr()) {
+                        output.addObject().putPOJO("cardAttacked", attacked).
+                                putPOJO("cardAttacker", attacker).
+                                put("command", "cardUsesAttack").
+                                put("error", game.getErr().getMessage());
+                    }
+                    game.ResetError(game.getErr());
                     break;
 
             }

@@ -9,12 +9,14 @@ public class TheRipper extends Minion {
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(false);
     }
 
     public TheRipper(Minion input) {
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(false);
     }
 
 //    public TheRipper(TheRipper r) {

@@ -8,12 +8,14 @@ public class Disciple extends Minion {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
 
     public Disciple(Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
 
 //    public Disciple(Disciple d) {

@@ -8,12 +8,14 @@ public class Sentinel extends Minion {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
 
     public Sentinel(Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
 
 //    public Sentinel(Sentinel s) {

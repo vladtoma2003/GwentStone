@@ -8,11 +8,13 @@ public class CursedOne extends Minion {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
     public CursedOne(Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
 
 //    public CursedOne(CursedOne c) {

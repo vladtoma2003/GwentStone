@@ -10,12 +10,14 @@ public class Berserker extends Minion {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
 
     public Berserker(Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
+        setTank(false);
     }
 
 //    public Berserker(Berserker b) {

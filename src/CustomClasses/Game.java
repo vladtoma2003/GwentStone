@@ -91,8 +91,6 @@ public class Game {
         players.get(0).getHand().add(PickUpCard(players, 0));
         players.get(1).getHand().add(PickUpCard(players, 1));
 
-
-        table.setFrozenFalse();
     }
 
     public ArrayList<Card> getEnvInHand(ArrayList<Card> hand) {

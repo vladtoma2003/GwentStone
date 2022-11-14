@@ -69,4 +69,5 @@ public class Player {
     public void setClosestRow(int closestRow) {
         this.closestRow = closestRow;
     }
+
 }

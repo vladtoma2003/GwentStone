@@ -9,12 +9,14 @@ public class Goliath extends Minion{
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(true);
     }
 
     public Goliath(Minion input) {
         super(input);
         setRow(1);
         setFrozen(false);
+        setTank(true);
     }
 
 //    public Goliath(Goliath g) {
