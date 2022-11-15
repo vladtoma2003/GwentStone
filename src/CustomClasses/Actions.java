@@ -168,17 +168,17 @@ public class Actions {
                 case "useAttackHero":
                     var heroAttacker = actions.getCardAttacker();
                     int other_turn = game.getTable().getCurrTurn();
-                    if(other_turn == 0) {
+                    if (other_turn == 0) {
                         other_turn = 1;
                     } else {
                         other_turn = 0;
                     }
                     game.getTable().attackHero(game, game.getPlayers().get(other_turn).getHero()
                             , heroAttacker.getX(), heroAttacker.getY(), game.getErr());
-                    if(game.isGameEnded()) {
+                    if (game.isGameEnded()) {
                         output.addObject().put("gameEnded", game.getGameEndMessage());
                     }
-                    if(game.getErr().getErr()) {
+                    if (game.getErr().getErr()) {
                         output.addObject().put("command", "useAttackHero").
                                 putPOJO("cardAttacker", heroAttacker).
                                 put("error", game.getErr().getMessage());
@@ -187,9 +187,9 @@ public class Actions {
                     break;
                 case "useHeroAbility":
                     game.getTable().useHeroAbility(game.getPlayers().get(game.getTable().getCurrTurn()).getHero()
-                    , game.getPlayers().get(game.getTable().getCurrTurn()), actions.getAffectedRow()
-                    , game.getErr());
-                    if(game.getErr().getErr()) {
+                            , game.getPlayers().get(game.getTable().getCurrTurn()), actions.getAffectedRow()
+                            , game.getErr());
+                    if (game.getErr().getErr()) {
                         output.addObject().put("command", "useHeroAbility").
                                 put("affectedRow", actions.getAffectedRow()).
                                 put("error", game.getErr().getMessage());

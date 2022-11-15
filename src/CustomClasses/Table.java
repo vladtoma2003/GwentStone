@@ -245,7 +245,7 @@ public class Table {
             err.setMessage("Attacked card does not belong to the enemy.");
             return;
         }
-        if (!attacked.isTank() && isEnemyTank()) {
+        if (!attacker.getName().equals("Disciple") && !attacked.isTank() && isEnemyTank()) {
             err.setErr(true);
             err.setMessage("Attacked card is not of type 'Tank'.");
             return;

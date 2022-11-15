@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fileio.CardInput;
 
 
-@JsonIgnoreProperties({ "frozen", "tank"})
+@JsonIgnoreProperties({"frozen", "tank"})
 
-public class Minion extends Card{
+public class Minion extends Card {
     private int attackDamage;
     private int health;
     @JsonIgnore
@@ -51,7 +51,10 @@ public class Minion extends Card{
         this.setHasAttacked(true);
     }
 
-    public void useAbility(Minion attacked){};
+    public void useAbility(Minion attacked) {
+    }
+
+    ;
 
     public int getAttackDamage() {
         return attackDamage;
@@ -76,6 +79,7 @@ public class Minion extends Card{
     public void setRow(int row) {
         this.row = row;
     }
+
     public boolean isFrozen() {
         return isFrozen;
     }
@@ -103,19 +107,19 @@ public class Minion extends Card{
     @Override
     public String toString() {
         return "CardInput{"
-                +  "mana="
+                + "mana="
                 + getMana()
-                +  ", attackDamage="
+                + ", attackDamage="
                 + attackDamage
                 + ", health="
                 + health
-                +  ", description='"
+                + ", description='"
                 + getDescription()
                 + '\''
                 + ", colors="
                 + getColors()
                 + ", name='"
-                +  ""
+                + ""
                 + getName()
                 + '\''
                 + '}';
