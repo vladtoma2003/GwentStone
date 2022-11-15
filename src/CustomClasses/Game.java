@@ -16,6 +16,8 @@ public class Game {
     private int turnsThisGame = 0;
     private int round = 1;
     private Error err;
+    private boolean gameEnded = false;
+    private String gameEndMessage;
 
     public void PrintHand() {
         String ceva1 = players.get(0).getHand().toString();
@@ -113,6 +115,10 @@ public class Game {
         table.setCurrTurn((table.getCurrTurn() + 1) % 2);
     }
 
+    public void resetGame() {
+        setGameEnded(false);
+    }
+
     public Table getTable() {
         return table;
     }
@@ -151,5 +157,21 @@ public class Game {
 
     public void setErr(Error err) {
         this.err = err;
+    }
+
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        this.gameEnded = gameEnded;
+    }
+
+    public String getGameEndMessage() {
+        return gameEndMessage;
+    }
+
+    public void setGameEndMessage(String gameEndMessage) {
+        this.gameEndMessage = gameEndMessage;
     }
 }

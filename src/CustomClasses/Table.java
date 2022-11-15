@@ -278,38 +278,77 @@ public class Table {
 
     }
 
-    public void attackHero(Hero hero, int x, int y, Error err) {
-        var attacker = getCardAtPosition(x, y, err);
-        if(attacker.isFrozen()) {
+    public void attackHero(Game game, Hero hero, int x, int y, Error err) {
+        var attacker = table[x].get(y);
+        if (err.getErr()) {
+            return;
+        }
+        if (attacker.isFrozen()) {
+            System.out.println("FROZEN HERO");
             err.setErr(true);
             err.setMessage("Attacker card is frozen.");
             return;
         }
-        if(attacker.isHasAttacked()){
+        if (attacker.isHasAttacked()) {
+            System.out.println("ATTACEKD HERO");
             err.setErr(true);
             err.setMessage("Attacker card has already attacked this turn.");
             return;
         }
-        if(isEnemyTank()) {
+        if (isEnemyTank()) {
+            System.out.println("TANK HERO");
             err.setErr(true);
             err.setMessage("Attacked card is not of type 'Tank'.");
             return;
         }
         attacker.Attack(hero);
-        checkHeroHealth(hero, err);
+        checkHeroHealth(hero, game);
     }
 
-    public void checkHeroHealth(Hero hero, Error err) {
-        if(getCurrTurn() == 0 && hero.getHealth() == 0) {
-            err.setErr(true);
-            err.setMessage("Player one killed the enemy hero.");
-            return;
+    public void checkHeroHealth(Hero hero, Game game) {
+        if (getCurrTurn() == 0 && hero.getHealth() == 0) {
+            game.setGameEnded(true);
+            game.setGameEndMessage("Player one killed the enemy hero.");
         }
-        if(getCurrTurn() == 1 && hero.getHealth() == 0) {
-            err.setErr(true);
-            err.setMessage("Player two killed the enemy hero.");
-            return;
+        if (getCurrTurn() == 1 && hero.getHealth() == 0) {
+            game.setGameEnded(true);
+            game.setGameEndMessage("Player two killed the enemy hero.");
         }
+    }
+
+    public void useHeroAbility(Hero hero, Player player, int row, Error err) {
+        switch (hero.getName()) {
+            case "Lord Royce":
+                Minion highestCard = table[row].get(0);
+                for (var c : table[row]) {
+                    if (highestCard.getAttackDamage() < c.getAttackDamage()) {
+                        highestCard = c;
+                    }
+                }
+                highestCard.setFrozen(true);
+                break;
+            case "Empress Thorina":
+                Minion destroyCard = table[row].get(0);
+                for(var c : table[row]) {
+                    if(destroyCard.getAttackDamage() < c.getAttackDamage()) {
+                        destroyCard = c;
+                    }
+                }
+                destroyCard.setHealth(0);
+                break;
+            case "King Mudface":
+                for(var c:table[row]) {
+                    c.setHealth(c.getHealth() + 1);
+                }
+                break;
+            case "General Kocioraw":
+                for(var c:table[row]) {
+                    c.setAttackDamage(c.getAttackDamage() + 1);
+                }
+                break;
+        }
+        checkHealth();
+        player.setMana(player.getMana() - hero.getMana());
     }
 
     boolean BelongsToCurrPlayer(int x) {

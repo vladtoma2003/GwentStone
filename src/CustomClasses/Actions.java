@@ -172,12 +172,22 @@ public class Actions {
                     } else {
                         other_turn = 0;
                     }
-                    game.getTable().attackHero(game.getPlayers().get(other_turn).getHero()
+                    game.getTable().attackHero(game, game.getPlayers().get(other_turn).getHero()
                             , heroAttacker.getX(), heroAttacker.getY(), game.getErr());
+                    if(game.isGameEnded()) {
+                        output.addObject().put("gameEnded", game.getGameEndMessage());
+                    }
                     if(game.getErr().getErr()) {
-                        output.addObject().put("gameEnded", game.getErr().getMessage());
+                        output.addObject().put("command", "useAttackHero").
+                                putPOJO("cardAttacker", heroAttacker).
+                                put("error", game.getErr().getMessage());
                     }
                     game.ResetError(game.getErr());
+                    break;
+                case "useHeroAbility":
+                    game.getTable().useHeroAbility(game.getPlayers().get(game.getTable().getCurrTurn()).getHero()
+                    , game.getPlayers().get(game.getTable().getCurrTurn()), actions.getAffectedRow()
+                    , game.getErr());
                     break;
 
             }

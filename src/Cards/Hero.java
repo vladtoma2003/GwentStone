@@ -1,10 +1,13 @@
 package Cards;
 
 import Cards.Card;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 
 public class Hero extends Card {
     private int health;
+    @JsonIgnore
+    private boolean hasAttacked = false;
 
     public Hero(CardInput card) {
         super(card);
@@ -27,20 +30,28 @@ public class Hero extends Card {
         this.health = health;
     }
 
+    public boolean isHasAttacked() {
+        return hasAttacked;
+    }
+
+    public void setHasAttacked(boolean hasAttacked) {
+        this.hasAttacked = hasAttacked;
+    }
+
     @Override
     public String toString() {
         return "CardInput{"
-                +  "mana="
+                + "mana="
                 + getMana()
                 + ", health="
                 + health
-                +  ", description='"
+                + ", description='"
                 + getDescription()
                 + '\''
                 + ", colors="
                 + getColors()
                 + ", name='"
-                +  ""
+                + ""
                 + getName()
                 + '\''
                 + '}';
