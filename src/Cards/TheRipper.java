@@ -12,6 +12,15 @@ public class TheRipper extends Minion {
         setTank(false);
     }
 
+    @Override
+    public void useAbility(Minion attacked) {
+        attacked.setAttackDamage(attacked.getAttackDamage() - 3);
+        if(attacked.getAttackDamage() < 0) {
+            attacked.setAttackDamage(0);
+        }
+        this.setHasAttacked(true);
+    }
+
     public TheRipper(Minion input) {
         super(input);
         setRow(1);

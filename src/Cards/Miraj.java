@@ -11,6 +11,15 @@ public class Miraj extends Minion{
         setFrozen(false);
         setTank(false);
     }
+
+    @Override
+    public void useAbility(Minion attacekd) {
+        int newHealth = attacekd.getHealth();
+        attacekd.setHealth(this.getHealth());
+        this.setHealth(newHealth);
+        this.setHasAttacked(true);
+    }
+
     public Miraj(Minion input) {
         super(input);
         setRow(1);

@@ -1,8 +1,6 @@
 package CustomClasses;
 
-import Cards.Card;
-import Cards.Environment;
-import Cards.Minion;
+import Cards.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +19,7 @@ public class Table {
 
     public Table(int curr_turn) {
         table = new ArrayList[4];
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             table[i] = new ArrayList<Minion>();
         }
         currTurn = curr_turn;
@@ -32,7 +30,7 @@ public class Table {
     }
 
     public void PlaceCard(Player p, int idx, int currPlayer, Error err) {
-        if(idx >= p.getHand().size()) {
+        if (idx >= p.getHand().size()) {
             return;
         }
         if (p.getHand().get(idx).getName().equals("Winterfell") ||
@@ -44,31 +42,31 @@ public class Table {
         }
         Minion card = (Minion) p.getHand().get(idx);
         int row = 0;
-        if(currPlayer == 0) {
-            if(card.getRow() == 1) {
+        if (currPlayer == 0) {
+            if (card.getRow() == 1) {
                 row = 2;
             } else {
                 row = 3;
             }
         } else {
-            if(card.getRow() == 1) {
+            if (card.getRow() == 1) {
                 row = 1;
             } else {
                 row = 0;
             }
         }
         int mana = card.getMana();
-        if(mana > p.getMana()) {
+        if (mana > p.getMana()) {
             err.setErr(true);
             err.setMessage("Not enough mana to place card on table.");
             return;
         }
-        if(isFullRow(row)) {
+        if (isFullRow(row)) {
             err.setErr(true);
             err.setMessage("Cannot place card on table since row is full.");
             return;
         }
-        p.setMana(p.getMana()-mana);
+        p.setMana(p.getMana() - mana);
         p.getHand().remove(idx);
         table[row].add(card);
     }
@@ -86,20 +84,21 @@ public class Table {
         String string3 = masa[3].toString();
         System.out.println(string0 + "\n" + string1 + "\n" + string2 + "\n" + string3);
     }
-    public Minion getCardAtPosition (int x, int y, Error err) {
-        if(table == null) {
+
+    public Minion getCardAtPosition(int x, int y, Error err) {
+        if (table == null) {
             return null;
         }
-        if(x > 3) {
+        if (x > 3) {
             return null;
         }
         int size = table[x].size();
-        if(y >= size) {
+        if (y >= size) {
             err.setErr(true);
             err.setMessage("No card available at that position.");
             return null;
         }
-        if(y >= table[x].size()) {
+        if (y >= table[x].size()) {
             err.setErr(true);
             err.setMessage("No card available at that position.");
             return null;
@@ -112,33 +111,33 @@ public class Table {
         Card card = player.getHand().get(idx);
 //        Environment card = (Environment) player.getHand().get(idx);
         if (!(card.getName().equals("Winterfell") ||
-            card.getName().equals("Firestorm") ||
-            card.getName().equals("Heart Hound"))) {
-                err.setErr(true);
-                err.setMessage("Chosen card is not of type environment.");
-                return;
+                card.getName().equals("Firestorm") ||
+                card.getName().equals("Heart Hound"))) {
+            err.setErr(true);
+            err.setMessage("Chosen card is not of type environment.");
+            return;
         }
-        if(card.getMana() > player.getMana()) {
+        if (card.getMana() > player.getMana()) {
             err.setErr(true);
             err.setMessage("Not enough mana to use environment card.");
             return;
         }
-        if(player.getPlayerIdx() == 1) {
-            if(row > 1) {
+        if (player.getPlayerIdx() == 1) {
+            if (row > 1) {
                 err.setErr(true);
                 err.setMessage("Chosen row does not belong to the enemy.");
                 return;
             }
         } else {
-            if(row < 2) {
+            if (row < 2) {
                 err.setErr(true);
                 err.setMessage("Chosen row does not belong to the enemy.");
                 return;
             }
         }
-        switch(card.getName()) {
+        switch (card.getName()) {
             case "Firestorm":
-                for(int i = 0; i < table[row].size(); ++i) {
+                for (int i = 0; i < table[row].size(); ++i) {
                     Minion curr_card = table[row].get(i);
                     curr_card.setHealth(curr_card.getHealth() - 1);
                 }
@@ -146,24 +145,24 @@ public class Table {
                 break;
             case "Winterfell":
                 Minion c;
-                for(int i = 0; i < table[row].size(); ++i) {
-                    c =table[row].get(i);
+                for (int i = 0; i < table[row].size(); ++i) {
+                    c = table[row].get(i);
                     c.setFrozen(true);
                 }
                 break;
             case "Heart Hound":
                 Minion stolenCard = table[row].get(0);
-                for(int i = 1; i < table[row].size(); ++i) {
-                    Minion minion =table[row].get(i);
-                    if(stolenCard.getHealth() > minion.getHealth()) {
+                for (int i = 1; i < table[row].size(); ++i) {
+                    Minion minion = table[row].get(i);
+                    if (stolenCard.getHealth() > minion.getHealth()) {
                         stolenCard = minion;
                     }
                 }
-                int newRow = 3-row;
-                if(isFullRow(newRow)) {
+                int newRow = 3 - row;
+                if (isFullRow(newRow)) {
                     err.setErr(true);
                     err.setMessage("Cannot steal enemy card since the player's row is full.");
-                    return ;
+                    return;
                 }
                 table[row].remove(stolenCard);
                 table[newRow].add(stolenCard);
@@ -175,10 +174,10 @@ public class Table {
 
     public ArrayList<Minion> getFrozenCards() {
         ArrayList<Minion> arr = new ArrayList<>();
-        for(int i = 0; i <= 3; ++i) {
-            for(var c : table[i]) {
+        for (int i = 0; i <= 3; ++i) {
+            for (var c : table[i]) {
                 Minion ceva = (Minion) c;
-                if(ceva.isFrozen()) {
+                if (ceva.isFrozen()) {
                     arr.add(ceva);
                 }
             }
@@ -190,49 +189,48 @@ public class Table {
     public void Attack(int x1, int y1, int x2, int y2, Error err) {
         Minion attacker = table[x1].get(y1);
         Minion attacked = table[x2].get(y2);
-        if(currTurn == 1) {
-            if(x2 < 2) {
+        if (currTurn == 1) {
+            if (x2 < 2) {
                 err.setErr(true);
                 err.setMessage("Attacked card does not belong to the enemy.");
                 return;
             }
         } else {
-            if(x2 > 1) {
+            if (x2 > 1) {
                 err.setErr(true);
                 err.setMessage("Attacked card does not belong to the enemy.");
                 return;
             }
         }
-        if(attacker.isHasAttacked()) {
+        if (attacker.isHasAttacked()) {
             err.setErr(true);
             err.setMessage("Attacker card has already attacked this turn.");
             return;
         }
-        if(attacker.isFrozen()) {
+        if (attacker.isFrozen()) {
             err.setErr(true);
             err.setMessage("Attacker card is frozen.");
             return;
         }
-        if(!attacked.isTank() && isEnemyTank()) {
+        if (!attacked.isTank() && isEnemyTank()) {
             err.setErr(true);
             err.setMessage("Attacked card is not of type 'Tank'.");
             return;
         }
-        attacked.setHealth(attacked.getHealth() - attacker.getAttackDamage());
-        attacker.setHasAttacked(true);
+        attacker.Attack(attacked);
         checkHealth();
     }
 
     public boolean isEnemyTank() {
-        if(currTurn == 0) {
-            for(var c: table[1]) {
-                if(c.isTank()){
+        if (currTurn == 0) {
+            for (var c : table[1]) {
+                if (c.isTank()) {
                     return true;
                 }
             }
         } else {
-            for(var c:table[2]) {
-                if(c.isTank()){
+            for (var c : table[2]) {
+                if (c.isTank()) {
                     return true;
                 }
             }
@@ -240,22 +238,42 @@ public class Table {
         return false;
     }
 
+    public void useCardAbility(Player player, int x1, int y1, int x2, int y2, Error err) {
+//        PrintTable();
+//        System.out.println(x1 + " " + y1 + " " + x2 + " " + y2);
+//        if((y1 > table[x1].size() - 1) ||(y2 > table[x2].size()-1)){
+//            return;
+//        }
+        var attacker = table[x1].get(y1);
+        var attacked = table[x2].get(y2);
+
+        if(attacker.getMana() > player.getMana()) {
+            return;
+        }
+
+        attacker.useAbility(attacked);
+        player.setMana(player.getMana() - attacker.getMana());
+        checkHealth();
+
+    }
+
+
     public void resetAttacks() {
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             ArrayList<Minion> row = table[i];
-            for(var c : row) {
+            for (var c : row) {
                 c.setHasAttacked(false);
             }
         }
     }
 
     public void checkHealth() {
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             ArrayList<Minion> row = new ArrayList<>(table[i]);
             int j = 0;
-            while(j < table[i].size()){
+            while (j < table[i].size()) {
                 Minion card = (Minion) table[i].get(j);
-                if(card.getHealth() <= 0) {
+                if (card.getHealth() <= 0) {
                     row.remove(card);
                 }
                 ++j;
@@ -265,7 +283,7 @@ public class Table {
     }
 
     public void setFrozenFalse(int player) {
-        if(player == 0) {
+        if (player == 0) {
             for (int i = 0; i < 2; ++i) {
                 for (int j = 0; j < table[i].size(); ++j) {
                     Minion card = table[i].get(j);

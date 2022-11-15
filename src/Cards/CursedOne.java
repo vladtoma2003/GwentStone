@@ -10,6 +10,15 @@ public class CursedOne extends Minion {
         setFrozen(false);
         setTank(false);
     }
+
+    @Override
+    public void useAbility(Minion attacked) {
+        int tempHealth = attacked.getHealth();
+        attacked.setHealth(attacked.getAttackDamage());
+        attacked.setAttackDamage(tempHealth);
+        this.setHasAttacked(true);
+    }
+
     public CursedOne(Minion input) {
         super(input);
         setRow(0);

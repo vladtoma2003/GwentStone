@@ -150,6 +150,14 @@ public class Actions {
                     }
                     game.ResetError(game.getErr());
                     break;
+                case "cardUsesAbility":
+                    var attacker1 = actions.getCardAttacker();
+                    var attacked1 = actions.getCardAttacked();
+                    game.getTable().useCardAbility(game.getPlayers().get(game.getTable().getCurrTurn()),
+                            attacker1.getX(), attacker1.getY(), attacked1.getX(), attacked1.getY(),
+                            game.getErr() );
+                    game.ResetError(game.getErr());
+                    break;
 
             }
         }

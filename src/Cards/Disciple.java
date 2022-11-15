@@ -11,6 +11,12 @@ public class Disciple extends Minion {
         setTank(false);
     }
 
+    @Override
+    public void useAbility(Minion attacked) {
+        attacked.setHealth(attacked.getHealth()+2);
+        this.setHasAttacked(true);
+    }
+
     public Disciple(Minion input) {
         super(input);
         setRow(0);
