@@ -71,6 +71,7 @@ public class Game {
 
         table.setCurrTurn(input.getStartGame().getStartingPlayer() - 1);
     }
+
     public Card PickUpCard(ArrayList<Player> players, int idx) {
         var deck = new ArrayList<>(players.get(idx).getDeck());
 //        getPlayers().get(idx).getHand().add(deck.get(0));
@@ -81,7 +82,7 @@ public class Game {
 
     public void NewRound() {
         ++round;
-        if(round < 10) {
+        if (round < 10) {
             players.get(0).setMana(players.get(0).getMana() + round);
             players.get(1).setMana(players.get(1).getMana() + round);
         } else {
@@ -95,7 +96,7 @@ public class Game {
 
     public ArrayList<Card> getEnvInHand(ArrayList<Card> hand) {
         ArrayList<Card> arr = new ArrayList<>();
-        for(var card:hand) {
+        for (var card : hand) {
             if ((card.getName().equals("Winterfell") ||
                     card.getName().equals("Firestorm") ||
                     card.getName().equals("Heart Hound"))) {
@@ -107,12 +108,10 @@ public class Game {
         return arr;
     }
 
-
     public void switchTurns() {
         ++turnsThisGame;
-        table.setCurrTurn((table.getCurrTurn()+1)%2);
+        table.setCurrTurn((table.getCurrTurn() + 1) % 2);
     }
-
 
     public Table getTable() {
         return table;

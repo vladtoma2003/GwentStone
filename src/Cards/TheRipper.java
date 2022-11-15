@@ -14,7 +14,7 @@ public class TheRipper extends Minion {
 
     @Override
     public void useAbility(Minion attacked) {
-        attacked.setAttackDamage(attacked.getAttackDamage() - 3);
+        attacked.setAttackDamage(attacked.getAttackDamage() - 2);
         if(attacked.getAttackDamage() < 0) {
             attacked.setAttackDamage(0);
         }

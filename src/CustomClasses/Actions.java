@@ -2,6 +2,7 @@ package CustomClasses;
 
 import Cards.Card;
 import Cards.Environment;
+import Cards.Hero;
 import Cards.Minion;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -19,11 +20,11 @@ public class Actions {
     private static void endTurn(Game game) {
         int currP = game.getTable().getCurrTurn();
         game.switchTurns();
-        if(game.getTurnsThisGame() % 2 == 0) {
+        if (game.getTurnsThisGame() % 2 == 0) {
             game.NewRound();
         }
 
-        if(currP == 0) {
+        if (currP == 0) {
             game.getTable().setFrozenFalse(1);
             game.getTable().resetAttacks();
         }
@@ -34,7 +35,6 @@ public class Actions {
         int currentPlayer = game.getTable().getCurrTurn();
         game.getTable().PlaceCard(game.getPlayers().get(currentPlayer), idx, currentPlayer, err);
     }
-
 
     public static void Command(Game game, ArrayList<ActionsInput> commands, ArrayNode output) {
         for (ActionsInput actions : commands) {
@@ -47,7 +47,7 @@ public class Actions {
                             putPOJO("output", curr_deck);
                     break;
                 case "getPlayerHero":
-                    var curr_hero = game.getPlayers().get(actions.getPlayerIdx() - 1).getHero();
+                    var curr_hero = new Hero(game.getPlayers().get(actions.getPlayerIdx() - 1).getHero());
                     output.addObject().put("command", "getPlayerHero").
                             put("playerIdx", actions.getPlayerIdx()).
                             putPOJO("output", curr_hero);
@@ -55,14 +55,14 @@ public class Actions {
                 case "getPlayerTurn":
                     var currTurn = game.getTable().getCurrTurn();
                     output.addObject().put("command", "getPlayerTurn").
-                            put("output", currTurn+1);
+                            put("output", currTurn + 1);
                     break;
                 case "endPlayerTurn":
                     endTurn(game);
                     break;
                 case "placeCard":
                     placeCard(game, actions.getHandIdx(), game.getErr());
-                    if(game.getErr().getErr()) {
+                    if (game.getErr().getErr()) {
                         output.addObject().put("command", "placeCard").
                                 put("handIdx", 0).
                                 put("error", game.getErr().getMessage());
@@ -72,7 +72,7 @@ public class Actions {
                 case "getCardsInHand":
                     var curr_hand = game.getPlayers().get(actions.getPlayerIdx() - 1).getHand();
                     var hand = new ArrayList<>();
-                    for(var c:curr_hand) {
+                    for (var c : curr_hand) {
                         if (c.getName().equals("Winterfell") ||
                                 c.getName().equals("Firestorm") ||
                                 c.getName().equals("Heart Hound")) {
@@ -108,7 +108,7 @@ public class Actions {
                     break;
                 case "getCardAtPosition":
                     Minion carte = game.getTable().getCardAtPosition(actions.getX(), actions.getY(), game.getErr());
-                    if(carte == null){
+                    if (carte == null) {
                         output.addObject().put("command", "getCardAtPosition").
                                 put("x", actions.getX()).
                                 put("y", actions.getY()).
@@ -124,7 +124,7 @@ public class Actions {
                 case "useEnvironmentCard":
                     game.getTable().useEnvCard(game.getPlayers().get(game.getTable().getCurrTurn()),
                             actions.getHandIdx(), actions.getAffectedRow(), game.getErr());
-                    if(game.getErr().getErr()) {
+                    if (game.getErr().getErr()) {
                         output.addObject().put("command", "useEnvironmentCard").
                                 put("handIdx", actions.getHandIdx()).
                                 put("affectedRow", actions.getAffectedRow()).
@@ -142,7 +142,7 @@ public class Actions {
                     var attacker = actions.getCardAttacker();
                     var attacked = actions.getCardAttacked();
                     game.getTable().Attack(attacker.getX(), attacker.getY(), attacked.getX(), attacked.getY(), game.getErr());
-                    if(game.getErr().getErr()) {
+                    if (game.getErr().getErr()) {
                         output.addObject().put("command", "cardUsesAttack").
                                 putPOJO("cardAttacker", attacker).
                                 putPOJO("cardAttacked", attacked).
@@ -155,7 +155,28 @@ public class Actions {
                     var attacked1 = actions.getCardAttacked();
                     game.getTable().useCardAbility(game.getPlayers().get(game.getTable().getCurrTurn()),
                             attacker1.getX(), attacker1.getY(), attacked1.getX(), attacked1.getY(),
-                            game.getErr() );
+                            game.getErr());
+                    if (game.getErr().getErr()) {
+                        output.addObject().put("command", "cardUsesAbility").
+                                putPOJO("cardAttacker", attacker1).
+                                putPOJO("cardAttacked", attacked1).
+                                put("error", game.getErr().getMessage());
+                    }
+                    game.ResetError(game.getErr());
+                    break;
+                case "useAttackHero":
+                    var heroAttacker = actions.getCardAttacker();
+                    int other_turn = game.getTable().getCurrTurn();
+                    if(other_turn == 0) {
+                        other_turn = 1;
+                    } else {
+                        other_turn = 0;
+                    }
+                    game.getTable().attackHero(game.getPlayers().get(other_turn).getHero()
+                            , heroAttacker.getX(), heroAttacker.getY(), game.getErr());
+                    if(game.getErr().getErr()) {
+                        output.addObject().put("gameEnded", game.getErr().getMessage());
+                    }
                     game.ResetError(game.getErr());
                     break;
 

@@ -46,6 +46,11 @@ public class Minion extends Card{
         this.setHasAttacked(true);
     }
 
+    public void Attack(Hero attacked) {
+        attacked.setHealth(attacked.getHealth() - this.getAttackDamage());
+        this.setHasAttacked(true);
+    }
+
     public void useAbility(Minion attacked){};
 
     public int getAttackDamage() {

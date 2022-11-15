@@ -189,19 +189,24 @@ public class Table {
     public void Attack(int x1, int y1, int x2, int y2, Error err) {
         Minion attacker = table[x1].get(y1);
         Minion attacked = table[x2].get(y2);
-        if (currTurn == 1) {
-            if (x2 < 2) {
-                err.setErr(true);
-                err.setMessage("Attacked card does not belong to the enemy.");
-                return;
-            }
-        } else {
-            if (x2 > 1) {
-                err.setErr(true);
-                err.setMessage("Attacked card does not belong to the enemy.");
-                return;
-            }
+        if (BelongsToCurrPlayer(x2)) {
+            err.setErr(true);
+            err.setMessage("Attacked card does not belong to the enemy.");
+            return;
         }
+//        if (currTurn == 1) {
+//            if (x2 < 2) {
+//                err.setErr(true);
+//                err.setMessage("Attacked card does not belong to the enemy.");
+//                return;
+//            }
+//        } else {
+//            if (x2 > 1) {
+//                err.setErr(true);
+//                err.setMessage("Attacked card does not belong to the enemy.");
+//                return;
+//            }
+//        }
         if (attacker.isHasAttacked()) {
             err.setErr(true);
             err.setMessage("Attacker card has already attacked this turn.");
@@ -239,22 +244,85 @@ public class Table {
     }
 
     public void useCardAbility(Player player, int x1, int y1, int x2, int y2, Error err) {
-//        PrintTable();
-//        System.out.println(x1 + " " + y1 + " " + x2 + " " + y2);
-//        if((y1 > table[x1].size() - 1) ||(y2 > table[x2].size()-1)){
-//            return;
-//        }
         var attacker = table[x1].get(y1);
         var attacked = table[x2].get(y2);
 
-        if(attacker.getMana() > player.getMana()) {
+        if (attacker.isFrozen()) {
+            err.setErr(true);
+            err.setMessage("Attacker card is frozen.");
+            return;
+        }
+        if (attacker.isHasAttacked()) {
+            err.setErr(true);
+            err.setMessage("Attacker card has already attacked this turn.");
+            return;
+        }
+        if (attacker.getName().equals("Disciple") && !BelongsToCurrPlayer(x2)) {
+            err.setErr(true);
+            err.setMessage("Attacked card does not belong to the current player.");
+            return;
+        }
+        if (!(attacker.getName().equals("Disciple")) && BelongsToCurrPlayer(x2)) {
+            err.setErr(true);
+            err.setMessage("Attacked card does not belong to the enemy.");
+            return;
+        }
+        if (!attacked.isTank() && isEnemyTank()) {
+            err.setErr(true);
+            err.setMessage("Attacked card is not of type 'Tank'.");
             return;
         }
 
         attacker.useAbility(attacked);
-        player.setMana(player.getMana() - attacker.getMana());
         checkHealth();
 
+    }
+
+    public void attackHero(Hero hero, int x, int y, Error err) {
+        var attacker = getCardAtPosition(x, y, err);
+        if(attacker.isFrozen()) {
+            err.setErr(true);
+            err.setMessage("Attacker card is frozen.");
+            return;
+        }
+        if(attacker.isHasAttacked()){
+            err.setErr(true);
+            err.setMessage("Attacker card has already attacked this turn.");
+            return;
+        }
+        if(isEnemyTank()) {
+            err.setErr(true);
+            err.setMessage("Attacked card is not of type 'Tank'.");
+            return;
+        }
+        attacker.Attack(hero);
+        checkHeroHealth(hero, err);
+    }
+
+    public void checkHeroHealth(Hero hero, Error err) {
+        if(getCurrTurn() == 0 && hero.getHealth() == 0) {
+            err.setErr(true);
+            err.setMessage("Player one killed the enemy hero.");
+            return;
+        }
+        if(getCurrTurn() == 1 && hero.getHealth() == 0) {
+            err.setErr(true);
+            err.setMessage("Player two killed the enemy hero.");
+            return;
+        }
+    }
+
+    boolean BelongsToCurrPlayer(int x) {
+        if (currTurn == 1) {
+            if (x < 2) {
+                return true;
+            }
+        } else {
+            if (x > 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
