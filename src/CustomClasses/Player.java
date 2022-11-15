@@ -15,6 +15,7 @@ public class Player {
 
     private int closestRow;
 
+
     public Player(ArrayList<Card> deck, Hero hero, int playerIdx) {
         this.deck = deck;
         this.hero = hero;

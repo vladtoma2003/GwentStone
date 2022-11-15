@@ -196,6 +196,19 @@ public class Actions {
                     }
                     game.ResetError(game.getErr());
                     break;
+                case "getPlayerOneWins":
+                    output.addObject().put("command", "getPlayerOneWins").
+                            put("output", Statistics.getGamesWonByPlayerOne());
+                    break;
+                case "getPlayerTwoWins":
+                    output.addObject().put("command", "getPlayerTwoWins").
+                            put("output", Statistics.getGamesWonByPlayerTwo());
+                    break;
+                case "getTotalGamesPlayed":
+                    output.addObject().put("command", "getTotalGamesPlayed").
+                            put("output", Statistics.getGamesPlayed());
+                default:
+                    game.ResetError(game.getErr());
 
             }
         }

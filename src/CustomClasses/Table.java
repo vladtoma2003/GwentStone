@@ -121,7 +121,7 @@ public class Table {
             err.setMessage("Not enough mana to use environment card.");
             return;
         }
-        if(BelongsToCurrPlayer(row)) {
+        if (BelongsToCurrPlayer(row)) {
             err.setErr(true);
             err.setMessage("Chosen row does not belong to the enemy.");
             return;
@@ -277,34 +277,39 @@ public class Table {
             return;
         }
         attacker.Attack(hero);
-        checkHeroHealth(hero, game);
+        checkHeroHealth(game);
     }
 
-    public void checkHeroHealth(Hero hero, Game game) {
-        if (getCurrTurn() == 0 && hero.getHealth() == 0) {
+    public void checkHeroHealth(Game game) {
+        if (game.getPlayers().get(1).getHero().getHealth() <= 0) {
             game.setGameEnded(true);
             game.setGameEndMessage("Player one killed the enemy hero.");
+            Statistics.setGamesWonByPlayerOne(Statistics.getGamesWonByPlayerOne() + 1);
+            Statistics.setGamesPlayed(Statistics.getGamesPlayed() + 1);
+            return;
         }
-        if (getCurrTurn() == 1 && hero.getHealth() == 0) {
+        if (game.getPlayers().get(0).getHero().getHealth() <= 0) {
             game.setGameEnded(true);
             game.setGameEndMessage("Player two killed the enemy hero.");
+            Statistics.setGamesWonByPlayerTwo(Statistics.getGamesWonByPlayerTwo() + 1);
+            Statistics.setGamesPlayed(Statistics.getGamesPlayed() + 1);
         }
     }
 
     public void useHeroAbility(Hero hero, Player player, int row, Error err) {
-        if(player.getMana() < hero.getMana()) {
+        if (player.getMana() < hero.getMana()) {
             err.setErr(true);
             err.setMessage("Not enough mana to use hero's ability.");
             return;
         }
-        if(hero.isHasAttacked()) {
+        if (hero.isHasAttacked()) {
             err.setErr(true);
             err.setMessage("Hero has already attacked this turn.");
             return;
         }
         switch (hero.getName()) {
             case "Lord Royce":
-                if(BelongsToCurrPlayer(row)) {
+                if (BelongsToCurrPlayer(row)) {
                     err.setErr(true);
                     err.setMessage("Selected row does not belong to the enemy.");
                     return;
@@ -318,36 +323,36 @@ public class Table {
                 highestCard.setFrozen(true);
                 break;
             case "Empress Thorina":
-                if(BelongsToCurrPlayer(row)) {
+                if (BelongsToCurrPlayer(row)) {
                     err.setErr(true);
                     err.setMessage("Selected row does not belong to the enemy.");
                     return;
                 }
                 Minion destroyCard = table[row].get(0);
-                for(var c : table[row]) {
-                    if(destroyCard.getAttackDamage() <= c.getAttackDamage()) {
+                for (var c : table[row]) {
+                    if (destroyCard.getAttackDamage() <= c.getAttackDamage()) {
                         destroyCard = c;
                     }
                 }
                 destroyCard.setHealth(0);
                 break;
             case "King Mudface":
-                if(!BelongsToCurrPlayer(row)) {
+                if (!BelongsToCurrPlayer(row)) {
                     err.setErr(true);
                     err.setMessage("Selected row does not belong to the current player.");
                     return;
                 }
-                for(var c:table[row]) {
+                for (var c : table[row]) {
                     c.setHealth(c.getHealth() + 1);
                 }
                 break;
             case "General Kocioraw":
-                if(!BelongsToCurrPlayer(row)) {
+                if (!BelongsToCurrPlayer(row)) {
                     err.setErr(true);
                     err.setMessage("Selected row does not belong to the current player.");
                     return;
                 }
-                for(var c:table[row]) {
+                for (var c : table[row]) {
                     c.setAttackDamage(c.getAttackDamage() + 1);
                 }
                 break;

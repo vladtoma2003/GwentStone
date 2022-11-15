@@ -33,6 +33,7 @@ public final class Main {
     /**
      * DO NOT MODIFY MAIN METHOD
      * Call the checker
+     *
      * @param args from command line
      * @throws IOException in case of exceptions to reading / writing
      */
@@ -75,16 +76,20 @@ public final class Main {
         ArrayNode output = objectMapper.createArrayNode();
 
         //TODO add here the entry point to your implementation
+        Statistics.setGamesWonByPlayerOne(0);
+        Statistics.setGamesWonByPlayerTwo(0);
+        Statistics.setGamesPlayed(0);
 
-        int curr_game = 0;
+        for (int curr_game = 0; curr_game < inputData.getGames().size(); ++curr_game) {
 
-        Game game = new Game(inputData, curr_game);
+            Game game = new Game(inputData, curr_game);
 
-        game.GamePrep(inputData.getGames().get(curr_game));
+            game.GamePrep(inputData.getGames().get(curr_game));
 
-        var commands = inputData.getGames().get(curr_game).getActions();
+            var commands = inputData.getGames().get(curr_game).getActions();
 
-        Actions.Command(game, commands, output);
+            Actions.Command(game, commands, output);
+        }
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);

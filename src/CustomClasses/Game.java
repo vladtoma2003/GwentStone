@@ -57,6 +57,7 @@ public class Game {
         err = new Error();
 
         table = new Table(input.getStartGame().getStartingPlayer());
+
     }
 
     public void ResetError(Error err) {
