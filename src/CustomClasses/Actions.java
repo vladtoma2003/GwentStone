@@ -19,6 +19,7 @@ public class Actions {
 
     private static void endTurn(Game game) {
         int currP = game.getTable().getCurrTurn();
+        game.getPlayers().get(currP).getHero().setHasAttacked(false);
         game.switchTurns();
         if (game.getTurnsThisGame() % 2 == 0) {
             game.NewRound();
@@ -188,6 +189,12 @@ public class Actions {
                     game.getTable().useHeroAbility(game.getPlayers().get(game.getTable().getCurrTurn()).getHero()
                     , game.getPlayers().get(game.getTable().getCurrTurn()), actions.getAffectedRow()
                     , game.getErr());
+                    if(game.getErr().getErr()) {
+                        output.addObject().put("command", "useHeroAbility").
+                                put("affectedRow", actions.getAffectedRow()).
+                                put("error", game.getErr().getMessage());
+                    }
+                    game.ResetError(game.getErr());
                     break;
 
             }

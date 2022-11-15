@@ -76,7 +76,6 @@ public class Game {
 
     public Card PickUpCard(ArrayList<Player> players, int idx) {
         var deck = new ArrayList<>(players.get(idx).getDeck());
-//        getPlayers().get(idx).getHand().add(deck.get(0));
         var card = deck.get(0);
         getPlayers().get(idx).getDeck().remove(0);
         return card;
@@ -91,8 +90,12 @@ public class Game {
             players.get(0).setMana(players.get(0).getMana() + 10);
             players.get(1).setMana(players.get(1).getMana() + 10);
         }
-        players.get(0).getHand().add(PickUpCard(players, 0));
-        players.get(1).getHand().add(PickUpCard(players, 1));
+        if(players.get(0).getDeck().size() > 0) {
+            players.get(0).getHand().add(PickUpCard(players, 0));
+        }
+        if(players.get(1).getDeck().size() > 0) {
+            players.get(1).getHand().add(PickUpCard(players, 1));
+        }
 
     }
 

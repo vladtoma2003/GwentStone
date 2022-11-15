@@ -109,7 +109,6 @@ public class Table {
 
     public void useEnvCard(Player player, int idx, int row, Error err) {
         Card card = player.getHand().get(idx);
-//        Environment card = (Environment) player.getHand().get(idx);
         if (!(card.getName().equals("Winterfell") ||
                 card.getName().equals("Firestorm") ||
                 card.getName().equals("Heart Hound"))) {
@@ -122,18 +121,10 @@ public class Table {
             err.setMessage("Not enough mana to use environment card.");
             return;
         }
-        if (player.getPlayerIdx() == 1) {
-            if (row > 1) {
-                err.setErr(true);
-                err.setMessage("Chosen row does not belong to the enemy.");
-                return;
-            }
-        } else {
-            if (row < 2) {
-                err.setErr(true);
-                err.setMessage("Chosen row does not belong to the enemy.");
-                return;
-            }
+        if(BelongsToCurrPlayer(row)) {
+            err.setErr(true);
+            err.setMessage("Chosen row does not belong to the enemy.");
+            return;
         }
         switch (card.getName()) {
             case "Firestorm":
@@ -194,19 +185,6 @@ public class Table {
             err.setMessage("Attacked card does not belong to the enemy.");
             return;
         }
-//        if (currTurn == 1) {
-//            if (x2 < 2) {
-//                err.setErr(true);
-//                err.setMessage("Attacked card does not belong to the enemy.");
-//                return;
-//            }
-//        } else {
-//            if (x2 > 1) {
-//                err.setErr(true);
-//                err.setMessage("Attacked card does not belong to the enemy.");
-//                return;
-//            }
-//        }
         if (attacker.isHasAttacked()) {
             err.setErr(true);
             err.setMessage("Attacker card has already attacked this turn.");
@@ -284,19 +262,16 @@ public class Table {
             return;
         }
         if (attacker.isFrozen()) {
-            System.out.println("FROZEN HERO");
             err.setErr(true);
             err.setMessage("Attacker card is frozen.");
             return;
         }
         if (attacker.isHasAttacked()) {
-            System.out.println("ATTACEKD HERO");
             err.setErr(true);
             err.setMessage("Attacker card has already attacked this turn.");
             return;
         }
         if (isEnemyTank()) {
-            System.out.println("TANK HERO");
             err.setErr(true);
             err.setMessage("Attacked card is not of type 'Tank'.");
             return;
@@ -317,47 +292,78 @@ public class Table {
     }
 
     public void useHeroAbility(Hero hero, Player player, int row, Error err) {
+        if(player.getMana() < hero.getMana()) {
+            err.setErr(true);
+            err.setMessage("Not enough mana to use hero's ability.");
+            return;
+        }
+        if(hero.isHasAttacked()) {
+            err.setErr(true);
+            err.setMessage("Hero has already attacked this turn.");
+            return;
+        }
         switch (hero.getName()) {
             case "Lord Royce":
+                if(BelongsToCurrPlayer(row)) {
+                    err.setErr(true);
+                    err.setMessage("Selected row does not belong to the enemy.");
+                    return;
+                }
                 Minion highestCard = table[row].get(0);
                 for (var c : table[row]) {
-                    if (highestCard.getAttackDamage() < c.getAttackDamage()) {
+                    if (highestCard.getAttackDamage() <= c.getAttackDamage()) {
                         highestCard = c;
                     }
                 }
                 highestCard.setFrozen(true);
                 break;
             case "Empress Thorina":
+                if(BelongsToCurrPlayer(row)) {
+                    err.setErr(true);
+                    err.setMessage("Selected row does not belong to the enemy.");
+                    return;
+                }
                 Minion destroyCard = table[row].get(0);
                 for(var c : table[row]) {
-                    if(destroyCard.getAttackDamage() < c.getAttackDamage()) {
+                    if(destroyCard.getAttackDamage() <= c.getAttackDamage()) {
                         destroyCard = c;
                     }
                 }
                 destroyCard.setHealth(0);
                 break;
             case "King Mudface":
+                if(!BelongsToCurrPlayer(row)) {
+                    err.setErr(true);
+                    err.setMessage("Selected row does not belong to the current player.");
+                    return;
+                }
                 for(var c:table[row]) {
                     c.setHealth(c.getHealth() + 1);
                 }
                 break;
             case "General Kocioraw":
+                if(!BelongsToCurrPlayer(row)) {
+                    err.setErr(true);
+                    err.setMessage("Selected row does not belong to the current player.");
+                    return;
+                }
                 for(var c:table[row]) {
                     c.setAttackDamage(c.getAttackDamage() + 1);
                 }
                 break;
         }
         checkHealth();
+        hero.setHasAttacked(true);
         player.setMana(player.getMana() - hero.getMana());
     }
 
-    boolean BelongsToCurrPlayer(int x) {
+    boolean BelongsToCurrPlayer(int row) {
         if (currTurn == 1) {
-            if (x < 2) {
+            if (row < 2) {
                 return true;
             }
         } else {
-            if (x > 1) {
+            if (row > 1) {
                 return true;
             }
         }
