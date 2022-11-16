@@ -56,11 +56,22 @@ public class Game {
 
     }
 
+    /**
+     * Resets the error status and message
+     *
+     * @param err
+     */
     public void resetError(final Error err) {
         err.setMessage(null);
         err.setErr(false);
     }
 
+    /**
+     * Prepares the game: Shuffles the deck, each player picks a card from
+     * the deck and sets the current turn variable to the starting player.
+     *
+     * @param input
+     */
     public void gamePrep(final GameInput input) {
         shuffle(players.get(0).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
         shuffle(players.get(1).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
@@ -71,6 +82,13 @@ public class Game {
         table.setCurrTurn(input.getStartGame().getStartingPlayer() - 1);
     }
 
+    /**
+     * The given player picks a card from the deck
+     *
+     * @param players
+     * @param idx
+     * @return
+     */
     public Card pickUpCard(final ArrayList<Player> players, final int idx) {
         var deck = new ArrayList<>(players.get(idx).getDeck());
         var card = deck.get(0);
@@ -78,6 +96,9 @@ public class Game {
         return card;
     }
 
+    /**
+     * End of the round: players get mana and pick one card up each.
+     */
     public void newRound() {
         ++round;
         if (round < maxRound) {
@@ -96,6 +117,13 @@ public class Game {
 
     }
 
+    /**
+     * Returns an array list of the Environment type cards
+     * from the given player's hand
+     *
+     * @param hand
+     * @return
+     */
     public ArrayList<Card> getEnvInHand(final ArrayList<Card> hand) {
         ArrayList<Card> arr = new ArrayList<>();
         for (var card : hand) {
@@ -110,64 +138,138 @@ public class Game {
         return arr;
     }
 
+    /**
+     * Switches the turn variable after each turn
+     */
     public void switchTurns() {
         ++turnsThisGame;
         table.setCurrTurn((table.getCurrTurn() + 1) % 2);
     }
 
 
+    /**
+     * Returns the game table
+     *
+     * @return
+     */
     public Table getTable() {
         return table;
     }
 
+    /**
+     * Sets the game table
+     *
+     * @param table
+     */
     public void setTable(final Table table) {
         this.table = table;
     }
 
+    /**
+     * Returns the Array of players
+     *
+     * @return
+     */
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Sets the array of players
+     *
+     * @param players
+     */
     public void setPlayers(final ArrayList<Player> players) {
         this.players = players;
     }
 
+    /**
+     * Returns how many turns have been playd
+     *
+     * @return
+     */
     public int getTurnsThisGame() {
         return turnsThisGame;
     }
 
+    /**
+     * Returns how many rounds have been played
+     *
+     * @return
+     */
     public int getRound() {
         return round;
     }
 
+    /**
+     * Sets the number of turns that have been played this game
+     *
+     * @param turnsThisGame
+     */
     public void setTurnsThisGame(final int turnsThisGame) {
         this.turnsThisGame = turnsThisGame;
     }
 
+    /**
+     * Sets the number of rounds played this game
+     *
+     * @param round
+     */
     public void setRound(final int round) {
         this.round = round;
     }
+
+    /**
+     * Returns the Error type variable
+     *
+     * @return
+     */
 
     public Error getErr() {
         return err;
     }
 
+    /**
+     * Sets the error type variable
+     *
+     * @param err
+     */
     public void setErr(final Error err) {
         this.err = err;
     }
 
+    /**
+     * Returns if the game has ended
+     *
+     * @return
+     */
     public boolean isGameEnded() {
         return gameEnded;
     }
 
+    /**
+     * Sets if the game has ended
+     *
+     * @param gameEnded
+     */
     public void setGameEnded(final boolean gameEnded) {
         this.gameEnded = gameEnded;
     }
 
+    /**
+     * Returns the winning player
+     *
+     * @return
+     */
     public String getGameEndMessage() {
         return gameEndMessage;
     }
 
+    /**
+     * Sets the winning player
+     *
+     * @param gameEndMessage
+     */
     public void setGameEndMessage(final String gameEndMessage) {
         this.gameEndMessage = gameEndMessage;
     }

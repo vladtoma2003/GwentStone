@@ -22,22 +22,47 @@ public class Hero extends Card {
         this.setName(hero.getName());
     }
 
+    /**
+     * Returns the health of the hero
+     *
+     * @return
+     */
     public int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    /**
+     * Sets the health of the hero
+     *
+     * @param health
+     */
+    public void setHealth(final int health) {
         this.health = health;
     }
 
+    /**
+     * Returns if the hero has already attacked this round
+     *
+     * @return
+     */
     public boolean isHasAttacked() {
         return hasAttacked;
     }
 
-    public void setHasAttacked(boolean hasAttacked) {
+    /**
+     * Sets the hero's attack status for the round
+     *
+     * @param hasAttacked
+     */
+    public void setHasAttacked(final boolean hasAttacked) {
         this.hasAttacked = hasAttacked;
     }
 
+    /**
+     * Print format for hero type card
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "CardInput{"

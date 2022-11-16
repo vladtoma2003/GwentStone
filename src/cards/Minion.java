@@ -22,7 +22,7 @@ public class Minion extends Card {
     @JsonIgnore
     private boolean isTank;
 
-    public Minion(CardInput input) {
+    public Minion(final CardInput input) {
         super(input);
         attackDamage = input.getAttackDamage();
         health = input.getHealth();
@@ -41,67 +41,147 @@ public class Minion extends Card {
 
     }
 
+    /**
+     * Attacks a Minion type card
+     *
+     * @param attacked
+     */
     public void attack(final Minion attacked) {
         attacked.setHealth(attacked.getHealth() - this.getAttackDamage());
         this.setHasAttacked(true);
     }
 
+    /**
+     * Attacks a Hero type card
+     *
+     * @param attacked
+     */
     public void attack(final Hero attacked) {
         attacked.setHealth(attacked.getHealth() - this.getAttackDamage());
         this.setHasAttacked(true);
     }
 
-    public void useAbility(Minion attacked) {
+    /**
+     * Does nothing, is overwritten in classes that have abilities
+     *
+     * @param attacked
+     */
+    public void useAbility(final Minion attacked) {
     }
 
+    /**
+     * Returns the attack damage of the card
+     *
+     * @return
+     */
     public int getAttackDamage() {
         return attackDamage;
     }
 
-    public void setAttackDamage(int attackDamage) {
+    /**
+     * Sets the attack damage of the card
+     *
+     * @param attackDamage
+     */
+    public void setAttackDamage(final int attackDamage) {
         this.attackDamage = attackDamage;
     }
 
+    /**
+     * Returns the current health of the card
+     *
+     * @return
+     */
     public int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    /**
+     * Sets the health of the card
+     *
+     * @param health
+     */
+    public void setHealth(final int health) {
         this.health = health;
     }
 
+    /**
+     * Returns the row that the card is placed on
+     *
+     * @return
+     */
     public int getRow() {
         return row;
     }
 
-    public void setRow(int row) {
+    /**
+     * Sets the row that the card is placed on
+     *
+     * @param row
+     */
+    public void setRow(final int row) {
         this.row = row;
     }
 
+    /**
+     * Returns if the card is frozen
+     *
+     * @return
+     */
     public boolean isFrozen() {
         return isFrozen;
     }
 
-    public void setFrozen(boolean frozen) {
+    /**
+     * Sets if the card is frozen
+     *
+     * @param frozen
+     */
+    public void setFrozen(final boolean frozen) {
         isFrozen = frozen;
     }
 
+    /**
+     * Returns if the card has already attacked this round
+     *
+     * @return
+     */
     public boolean isHasAttacked() {
         return hasAttacked;
     }
 
-    public void setHasAttacked(boolean hasAttacked) {
+    /**
+     * Sets if the card has already attacked this round
+     *
+     * @param hasAttacked
+     */
+    public void setHasAttacked(final boolean hasAttacked) {
         this.hasAttacked = hasAttacked;
     }
 
+    /**
+     * Returns if the card is a tank
+     *
+     * @return
+     */
     public boolean isTank() {
         return isTank;
     }
 
-    public void setTank(boolean tank) {
+    /**
+     * Sets the tank status of the card
+     *
+     * @param tank
+     */
+    public void setTank(final boolean tank) {
         isTank = tank;
     }
 
+    /**
+     * Print format for minion type card
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "CardInput{"

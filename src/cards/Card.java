@@ -27,39 +27,85 @@ public class Card {
     public Card() {
     }
 
-
+    /**
+     * returns mana of the card
+     *
+     * @return
+     */
     public int getMana() {
         return mana;
     }
 
-    public void setMana(int mana) {
+    /**
+     * changes the value of the mana
+     *
+     * @param mana
+     */
+    public void setMana(final int mana) {
         this.mana = mana;
     }
+
+    /**
+     * returns the description of a card
+     *
+     * @return
+     */
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    /**
+     * changes the description of a card
+     *
+     * @param description
+     */
+    public void setDescription(final String description) {
         this.description = description;
     }
 
+    /**
+     * returns the array of colors of a card
+     *
+     * @return
+     */
     public ArrayList<String> getColors() {
         return colors;
     }
 
-    public void setColors(ArrayList<String> colors) {
+    /**
+     * sets the colors of a card
+     *
+     * @param colors
+     */
+
+    public void setColors(final ArrayList<String> colors) {
         this.colors = colors;
     }
 
+    /**
+     * returns the name of the card
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * sets the name of the card
+     *
+     * @param name
+     */
+    public void setName(final String name) {
         this.name = name;
     }
 
+    /**
+     * Print format of the card
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "CardInput{"

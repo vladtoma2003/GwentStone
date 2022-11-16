@@ -10,19 +10,39 @@ public class Error {
 
     private String message = null;
 
+    /**
+     * Returns if the command is correct
+     *
+     * @return
+     */
     public boolean getErr() {
         return err;
     }
 
-    public void setErr(boolean err) {
+    /**
+     * Sets the error status
+     *
+     * @param err
+     */
+    public void setErr(final boolean err) {
         this.err = err;
     }
 
+    /**
+     * Returns the message of the error
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    /**
+     * Sets the message of the error
+     *
+     * @param message
+     */
+    public void setMessage(final String message) {
         this.message = message;
     }
 }

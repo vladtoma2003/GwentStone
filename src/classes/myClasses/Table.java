@@ -29,10 +29,25 @@ public class Table {
         currTurn = turn;
     }
 
+    /**
+     * Checks if the given row is full
+     *
+     * @param row
+     * @return
+     */
     private boolean isFullRow(final int row) {
         return bound <= table[row].size();
     }
 
+    /**
+     * Places a given Minion type card on the table by removing it from the hand
+     * and adding it to the corresponding row
+     *
+     * @param p
+     * @param idx
+     * @param currPlayer
+     * @param err
+     */
     public void placeCard(final Player p, final int idx, final int currPlayer, final Error err) {
         if (idx >= p.getHand().size()) {
             return;
@@ -73,11 +88,25 @@ public class Table {
         table[row].add(card);
     }
 
+    /**
+     * Returns a copy of the given row from the table
+     *
+     * @param row
+     * @return
+     */
     public ArrayList<Card> getRow(final int row) {
         ArrayList<Card> ret = new ArrayList<>(table[row]);
         return ret;
     }
 
+    /**
+     * Returns the card position from the table (if the card is on the table)
+     *
+     * @param x
+     * @param y
+     * @param err
+     * @return
+     */
     public Minion getCardAtPosition(final int x, final int y, final Error err) {
         if (table == null) {
             return null;
@@ -100,6 +129,14 @@ public class Table {
         return ret;
     }
 
+    /**
+     * Uses the ability of an Environment type card on the given row
+     *
+     * @param player
+     * @param idx
+     * @param row
+     * @param err
+     */
     public void useEnvCard(final Player player, final int idx, final int row, final Error err) {
         Card card = player.getHand().get(idx);
         if (!(card.getName().equals("Winterfell")
@@ -158,6 +195,11 @@ public class Table {
         player.setMana(player.getMana() - card.getMana());
     }
 
+    /**
+     * Returns all the frozen cards on the table
+     *
+     * @return
+     */
     public ArrayList<Minion> getFrozenCards() {
         ArrayList<Minion> arr = new ArrayList<>();
         for (int i = 0; i <= three; ++i) {
@@ -172,6 +214,15 @@ public class Table {
 
     }
 
+    /**
+     * The attacker card attacks the attacked card, both have to be present on the table
+     *
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param err
+     */
     public void attack(final int x1, final int y1, final int x2, final int y2, final Error err) {
         Minion attacker = table[x1].get(y1);
         Minion attacked = table[x2].get(y2);
@@ -199,6 +250,11 @@ public class Table {
         checkHealth();
     }
 
+    /**
+     * Checks if the enemy has a tank present on the table
+     *
+     * @return
+     */
     public boolean isEnemyTank() {
         if (currTurn == 0) {
             for (var c : table[1]) {
@@ -216,6 +272,16 @@ public class Table {
         return false;
     }
 
+    /**
+     * Uses the ability of a given Minion type card on the
+     * card that is at the given position
+     *
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param err
+     */
     public void useCardAbility(final int x1, final int y1, final int x2,
                                final int y2, final Error err) {
         var attacker = table[x1].get(y1);
@@ -252,6 +318,15 @@ public class Table {
 
     }
 
+    /**
+     * The given card attacks the hero if there is no enemy tank presnet
+     *
+     * @param game
+     * @param hero
+     * @param x
+     * @param y
+     * @param err
+     */
     public void attackHero(final Game game, final Hero hero,
                            final int x, final int y, final Error err) {
         var attacker = table[x].get(y);
@@ -277,6 +352,11 @@ public class Table {
         checkHeroHealth(game);
     }
 
+    /**
+     * Checks if the hero has died and if so the game ends
+     *
+     * @param game
+     */
     public void checkHeroHealth(final Game game) {
         if (game.getPlayers().get(1).getHero().getHealth() <= 0) {
             game.setGameEnded(true);
@@ -293,6 +373,14 @@ public class Table {
         }
     }
 
+    /**
+     * Uses the hero ability on the given row.
+     *
+     * @param hero
+     * @param player
+     * @param row
+     * @param err
+     */
     public void useHeroAbility(final Hero hero, final Player player,
                                final int row, final Error err) {
         if (player.getMana() < hero.getMana()) {
@@ -361,6 +449,12 @@ public class Table {
         player.setMana(player.getMana() - hero.getMana());
     }
 
+    /**
+     * Checks if the given row belongs to the curent player
+     *
+     * @param row
+     * @return
+     */
     boolean belongsToCurrPlayer(final int row) {
         if (currTurn == 1) {
             if (row < 2) {
@@ -375,6 +469,9 @@ public class Table {
     }
 
 
+    /**
+     * Resets the hasAttacked variable at the end of the round
+     */
     public void resetAttacks() {
         for (int i = 0; i < four; ++i) {
             ArrayList<Minion> row = table[i];
@@ -384,6 +481,10 @@ public class Table {
         }
     }
 
+    /**
+     * Checks the health of all the card on the table, if the
+     * health is below 0, the card is removed from the table
+     */
     public void checkHealth() {
         for (int i = 0; i < four; ++i) {
             ArrayList<Minion> row = new ArrayList<>(table[i]);
@@ -399,6 +500,11 @@ public class Table {
         }
     }
 
+    /**
+     * Resets the frozen status of the card
+     *
+     * @param player
+     */
     public void setFrozenFalse(final int player) {
         if (player == 0) {
             for (int i = 0; i < 2; ++i) {
@@ -417,22 +523,38 @@ public class Table {
         }
     }
 
+    /**
+     * Returns the table
+     *
+     * @return
+     */
     public ArrayList<Minion>[] getTable() {
         return table;
     }
 
+    /**
+     * Sets the table
+     *
+     * @param table
+     */
     public void setTable(final ArrayList<Minion>[] table) {
         this.table = table;
     }
 
-    public int getBound() {
-        return bound;
-    }
-
+    /**
+     * Returns the current playing player
+     *
+     * @return
+     */
     public int getCurrTurn() {
         return currTurn;
     }
 
+    /**
+     * Sets the current playing parent
+     *
+     * @param turn
+     */
     public void setCurrTurn(final int turn) {
         this.currTurn = turn;
     }

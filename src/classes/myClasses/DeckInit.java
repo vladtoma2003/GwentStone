@@ -55,7 +55,7 @@ public class DeckInit {
                         CursedOne card = new CursedOne(c);
                         deck.add(card);
                     }
-                    case "Disciple" -> {
+                    default -> {
                         Disciple card = new Disciple(c);
                         deck.add(card);
                     }
@@ -64,11 +64,21 @@ public class DeckInit {
         }
     }
 
+    /**
+     * Returns the deck
+     *
+     * @return
+     */
     public ArrayList<Card> getDeck() {
         return deck;
     }
 
-    public void setDeck(ArrayList<Card> deck) {
+    /**
+     * Sets the deck
+     *
+     * @param deck
+     */
+    public void setDeck(final ArrayList<Card> deck) {
         this.deck = deck;
     }
 }

@@ -10,6 +10,11 @@ public class CursedOne extends Minion {
         setTank(false);
     }
 
+    /**
+     * Swaps the attack damage and the health of a given minion card
+     *
+     * @param attacked
+     */
     @Override
     public void useAbility(final Minion attacked) {
         int tempHealth = attacked.getHealth();

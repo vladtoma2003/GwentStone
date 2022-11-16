@@ -15,6 +15,11 @@ public class Environment extends Card {
 
     }
 
+    /**
+     * Print format for Environment type cards
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "CardInput{"

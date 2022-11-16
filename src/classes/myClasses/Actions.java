@@ -31,6 +31,14 @@ public class Actions {
         game.getTable().placeCard(game.getPlayers().get(currentPlayer), idx, currentPlayer, err);
     }
 
+    /**
+     * Gets the command, does the command and puts the output of the command
+     * int the output of the program.
+     *
+     * @param game
+     * @param commands
+     * @param output
+     */
     public static void command(final Game game, final ArrayList<ActionsInput> commands,
                                final ArrayNode output) {
         for (ActionsInput actions : commands) {

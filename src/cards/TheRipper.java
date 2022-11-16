@@ -11,6 +11,11 @@ public class TheRipper extends Minion {
         setTank(false);
     }
 
+    /**
+     * Decreases the attack damage of a given card by 2 points
+     *
+     * @param attacked
+     */
     @Override
     public void useAbility(final Minion attacked) {
         attacked.setAttackDamage(attacked.getAttackDamage() - 2);

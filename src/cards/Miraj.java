@@ -11,6 +11,11 @@ public class Miraj extends Minion {
         setTank(false);
     }
 
+    /**
+     * Swaps his health with the given card's health
+     *
+     * @param attacekd
+     */
     @Override
     public void useAbility(final Minion attacekd) {
         int newHealth = attacekd.getHealth();
