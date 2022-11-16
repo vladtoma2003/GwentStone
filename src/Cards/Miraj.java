@@ -1,11 +1,10 @@
 package Cards;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 
-public class Miraj extends Minion{
+public class Miraj extends Minion {
 
-    public Miraj(CardInput input) {
+    public Miraj(final CardInput input) {
         super(input);
         setRow(1);
         setFrozen(false);
@@ -13,30 +12,19 @@ public class Miraj extends Minion{
     }
 
     @Override
-    public void useAbility(Minion attacekd) {
+    public void useAbility(final Minion attacekd) {
         int newHealth = attacekd.getHealth();
         attacekd.setHealth(this.getHealth());
         this.setHealth(newHealth);
         this.setHasAttacked(true);
     }
 
-    public Miraj(Minion input) {
+    public Miraj(final Minion input) {
         super(input);
         setRow(1);
         setFrozen(false);
         setTank(false);
     }
-
-//    public Miraj(Miraj m) {
-//        Miraj mir = new Miraj();
-//        mir.setName(m.getName());
-//        mir.setMana(m.getMana());
-//        mir.setDescription(m.getDescription());
-//        mir.setColors(m.getColors());
-//        mir.setHealth(m.getHealth());
-//        mir.setAttackDamage(m.getAttackDamage());
-//        mir.setRow(m.getRow());
-//    }
 
     public Miraj() {
 

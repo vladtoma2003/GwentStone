@@ -1,7 +1,5 @@
 package Cards;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import fileio.CardInput;
 
 import java.util.ArrayList;
@@ -12,13 +10,14 @@ public class Card {
     private ArrayList<String> colors;
     private String name;
 
-    public Card (CardInput card) {
+    public Card(final CardInput card) {
         mana = card.getMana();
         description = card.getDescription();
         colors = new ArrayList<>(card.getColors());
         name = card.getName();
     }
-    public Card (Card card) {
+
+    public Card(final Card card) {
         mana = card.getMana();
         description = card.getDescription();
         colors = new ArrayList<>(card.getColors());
@@ -28,10 +27,6 @@ public class Card {
     public Card() {
     }
 
-    public Card copy(Card card) {
-        Card c = new Card(card);
-        return c;
-    }
 
     public int getMana() {
         return mana;
@@ -64,18 +59,19 @@ public class Card {
     public void setName(String name) {
         this.name = name;
     }
+
     @Override
     public String toString() {
         return "CardInput{"
-                +  "mana="
+                + "mana="
                 + getMana()
-                +  ", description='"
+                + ", description='"
                 + getDescription()
                 + '\''
                 + ", colors="
                 + getColors()
                 + ", name='"
-                +  ""
+                + ""
                 + getName()
                 + '\''
                 + '}';

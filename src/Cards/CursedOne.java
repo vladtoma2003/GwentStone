@@ -1,10 +1,9 @@
 package Cards;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 
 public class CursedOne extends Minion {
-    public CursedOne(CardInput input) {
+    public CursedOne(final CardInput input) {
         super(input);
         setRow(0);
         setFrozen(false);
@@ -12,30 +11,19 @@ public class CursedOne extends Minion {
     }
 
     @Override
-    public void useAbility(Minion attacked) {
+    public void useAbility(final Minion attacked) {
         int tempHealth = attacked.getHealth();
         attacked.setHealth(attacked.getAttackDamage());
         attacked.setAttackDamage(tempHealth);
         this.setHasAttacked(true);
     }
 
-    public CursedOne(Minion input) {
+    public CursedOne(final Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
         setTank(false);
     }
-
-//    public CursedOne(CursedOne c) {
-//        CursedOne cur = new CursedOne();
-//        cur.setName(c.getName());
-//        cur.setMana(c.getMana());
-//        cur.setDescription(c.getDescription());
-//        cur.setColors(c.getColors());
-//        cur.setHealth(c.getHealth());
-//        cur.setAttackDamage(c.getAttackDamage());
-//        cur.setRow(c.getRow());
-//    }
 
     public CursedOne() {
     }

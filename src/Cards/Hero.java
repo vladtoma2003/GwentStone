@@ -1,20 +1,20 @@
 package Cards;
 
-import Cards.Card;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 
 public class Hero extends Card {
+    private final int heroHealth = 30;
     private int health;
     @JsonIgnore
     private boolean hasAttacked = false;
 
-    public Hero(CardInput card) {
+    public Hero(final CardInput card) {
         super(card);
-        this.health = 30;
+        this.health = heroHealth;
     }
 
-    public Hero(Hero hero) {
+    public Hero(final Hero hero) {
         this.setHealth(hero.getHealth());
         this.setColors(hero.getColors());
         this.setDescription(hero.getDescription());

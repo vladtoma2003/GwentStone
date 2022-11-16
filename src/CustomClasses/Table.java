@@ -330,7 +330,7 @@ public class Table {
                 }
                 Minion destroyCard = table[row].get(0);
                 for (var c : table[row]) {
-                    if (destroyCard.getAttackDamage() <= c.getAttackDamage()) {
+                    if (destroyCard.getHealth() <= c.getHealth()) {
                         destroyCard = c;
                     }
                 }

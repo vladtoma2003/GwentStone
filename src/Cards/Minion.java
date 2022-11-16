@@ -28,7 +28,7 @@ public class Minion extends Card {
         health = input.getHealth();
     }
 
-    public Minion(Minion m) {
+    public Minion(final Minion m) {
         this.setName(m.getName());
         this.setMana(m.getMana());
         this.setDescription(m.getDescription());
@@ -41,20 +41,18 @@ public class Minion extends Card {
 
     }
 
-    public void Attack(Minion attacked) {
+    public void Attack(final Minion attacked) {
         attacked.setHealth(attacked.getHealth() - this.getAttackDamage());
         this.setHasAttacked(true);
     }
 
-    public void Attack(Hero attacked) {
+    public void Attack(final Hero attacked) {
         attacked.setHealth(attacked.getHealth() - this.getAttackDamage());
         this.setHasAttacked(true);
     }
 
     public void useAbility(Minion attacked) {
     }
-
-    ;
 
     public int getAttackDamage() {
         return attackDamage;

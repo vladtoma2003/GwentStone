@@ -4,11 +4,8 @@ import Cards.Card;
 import Cards.Environment;
 import Cards.Hero;
 import Cards.Minion;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import fileio.ActionsInput;
-import fileio.Coordinates;
-import fileio.GameInput;
 
 import java.util.ArrayList;
 import java.util.Collection;

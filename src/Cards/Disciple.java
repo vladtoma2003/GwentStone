@@ -1,6 +1,5 @@
 package Cards;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 
 public class Disciple extends Minion {
@@ -12,28 +11,17 @@ public class Disciple extends Minion {
     }
 
     @Override
-    public void useAbility(Minion attacked) {
-        attacked.setHealth(attacked.getHealth()+2);
+    public void useAbility(final Minion attacked) {
+        attacked.setHealth(attacked.getHealth() + 2);
         this.setHasAttacked(true);
     }
 
-    public Disciple(Minion input) {
+    public Disciple(final Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
         setTank(false);
     }
-
-//    public Disciple(Disciple d) {
-//        Disciple disc = new Disciple();
-//        disc.setName(d.getName());
-//        disc.setMana(d.getMana());
-//        disc.setDescription(d.getDescription());
-//        disc.setColors(d.getColors());
-//        disc.setHealth(d.getHealth());
-//        disc.setAttackDamage(d.getAttackDamage());
-//        disc.setRow(d.getRow());
-//    }
 
     public Disciple() {
 

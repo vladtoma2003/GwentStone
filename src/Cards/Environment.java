@@ -3,11 +3,11 @@ package Cards;
 import fileio.CardInput;
 
 public class Environment extends Card {
-    public Environment(CardInput input) {
+    public Environment(final CardInput input) {
         super(input);
     }
 
-    public Environment(Card input) {
+    public Environment(final Card input) {
         super(input);
     }
 
@@ -18,15 +18,15 @@ public class Environment extends Card {
     @Override
     public String toString() {
         return "CardInput{"
-                +  "mana="
+                + "mana="
                 + getMana()
-                +  ", description='"
+                + ", description='"
                 + getDescription()
                 + '\''
                 + ", colors="
                 + getColors()
                 + ", name='"
-                +  ""
+                + ""
                 + getName()
                 + '\''
                 + '}';
