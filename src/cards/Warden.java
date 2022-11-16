@@ -1,26 +1,23 @@
-package Cards;
+package cards;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 
-public class Goliath extends Minion {
-
-    public Goliath(final CardInput input) {
+public class Warden extends Minion {
+    public Warden(final CardInput input) {
         super(input);
         setRow(1);
         setFrozen(false);
         setTank(true);
     }
 
-    public Goliath(final Minion input) {
+    public Warden(final Minion input) {
         super(input);
         setRow(1);
         setFrozen(false);
         setTank(true);
     }
 
-
-    public Goliath() {
+    public Warden() {
 
     }
 }

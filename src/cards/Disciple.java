@@ -1,9 +1,9 @@
-package Cards;
+package cards;
 
 import fileio.CardInput;
 
-public class CursedOne extends Minion {
-    public CursedOne(final CardInput input) {
+public class Disciple extends Minion {
+    public Disciple(CardInput input) {
         super(input);
         setRow(0);
         setFrozen(false);
@@ -12,19 +12,18 @@ public class CursedOne extends Minion {
 
     @Override
     public void useAbility(final Minion attacked) {
-        int tempHealth = attacked.getHealth();
-        attacked.setHealth(attacked.getAttackDamage());
-        attacked.setAttackDamage(tempHealth);
+        attacked.setHealth(attacked.getHealth() + 2);
         this.setHasAttacked(true);
     }
 
-    public CursedOne(final Minion input) {
+    public Disciple(final Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
         setTank(false);
     }
 
-    public CursedOne() {
+    public Disciple() {
+
     }
 }

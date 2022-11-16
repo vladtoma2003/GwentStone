@@ -1,4 +1,4 @@
-package CustomClasses;
+package classes.myClasses;
 
 public class Statistics {
     private static int gamesWonByPlayerOne = 0;
@@ -10,7 +10,7 @@ public class Statistics {
         return gamesWonByPlayerOne;
     }
 
-    public static void setGamesWonByPlayerOne(int gamesWonByPlayerOne) {
+    public static void setGamesWonByPlayerOne(final int gamesWonByPlayerOne) {
         Statistics.gamesWonByPlayerOne = gamesWonByPlayerOne;
     }
 
@@ -18,7 +18,7 @@ public class Statistics {
         return gamesWonByPlayerTwo;
     }
 
-    public static void setGamesWonByPlayerTwo(int gamesWonByPlayerTwo) {
+    public static void setGamesWonByPlayerTwo(final int gamesWonByPlayerTwo) {
         Statistics.gamesWonByPlayerTwo = gamesWonByPlayerTwo;
     }
 
@@ -26,7 +26,7 @@ public class Statistics {
         return gamesPlayed;
     }
 
-    public static void setGamesPlayed(int gamesPlayed) {
+    public static void setGamesPlayed(final int gamesPlayed) {
         Statistics.gamesPlayed = gamesPlayed;
     }
 }

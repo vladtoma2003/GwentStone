@@ -1,6 +1,7 @@
-package CustomClasses;
+package classes.myClasses;
 
-import Cards.*;
+import cards.Card;
+import cards.Hero;
 import fileio.CardInput;
 import fileio.GameInput;
 import fileio.Input;
@@ -18,17 +19,12 @@ public class Game {
     private Error err;
     private boolean gameEnded = false;
     private String gameEndMessage;
+    private final int p1ClosestRow = 3;
+    private final int p2ClosestRow = 0;
+    private final int maxRound = 10;
 
-    public void PrintHand() {
-        String ceva1 = players.get(0).getHand().toString();
-        String ceva2 = players.get(1).getHand().toString();
-
-        System.out.println("Hand1: " + ceva1);
-        System.out.println("Hand2: " + ceva2);
-    }
-
-    public Game(Input inputData, int curr_game) {
-        GameInput input = inputData.getGames().get(curr_game);
+    public Game(final Input inputData, final int currGame) {
+        GameInput input = inputData.getGames().get(currGame);
 
         int deck1Idx = input.getStartGame().getPlayerOneDeckIdx();
         int deck2Idx = input.getStartGame().getPlayerTwoDeckIdx();
@@ -47,8 +43,8 @@ public class Game {
 
         Player p1 = new Player(p1deck.getDeck(), herop1, 1);
         Player p2 = new Player(p2deck.getDeck(), herop2, 2);
-        p1.setClosestRow(3);
-        p2.setClosestRow(0);
+        p1.setClosestRow(p1ClosestRow);
+        p2.setClosestRow(p2ClosestRow);
 
         players = new ArrayList<>();
         players.add(p1);
@@ -60,52 +56,52 @@ public class Game {
 
     }
 
-    public void ResetError(Error err) {
+    public void resetError(final Error err) {
         err.setMessage(null);
         err.setErr(false);
     }
 
-    public void GamePrep(GameInput input) {
+    public void gamePrep(final GameInput input) {
         shuffle(players.get(0).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
         shuffle(players.get(1).getDeck(), new Random(input.getStartGame().getShuffleSeed()));
 
-        players.get(0).getHand().add(PickUpCard(players, 0));
-        players.get(1).getHand().add(PickUpCard(players, 1));
+        players.get(0).getHand().add(pickUpCard(players, 0));
+        players.get(1).getHand().add(pickUpCard(players, 1));
 
         table.setCurrTurn(input.getStartGame().getStartingPlayer() - 1);
     }
 
-    public Card PickUpCard(ArrayList<Player> players, int idx) {
+    public Card pickUpCard(final ArrayList<Player> players, final int idx) {
         var deck = new ArrayList<>(players.get(idx).getDeck());
         var card = deck.get(0);
         getPlayers().get(idx).getDeck().remove(0);
         return card;
     }
 
-    public void NewRound() {
+    public void newRound() {
         ++round;
-        if (round < 10) {
+        if (round < maxRound) {
             players.get(0).setMana(players.get(0).getMana() + round);
             players.get(1).setMana(players.get(1).getMana() + round);
         } else {
-            players.get(0).setMana(players.get(0).getMana() + 10);
-            players.get(1).setMana(players.get(1).getMana() + 10);
+            players.get(0).setMana(players.get(0).getMana() + maxRound);
+            players.get(1).setMana(players.get(1).getMana() + maxRound);
         }
-        if(players.get(0).getDeck().size() > 0) {
-            players.get(0).getHand().add(PickUpCard(players, 0));
+        if (players.get(0).getDeck().size() > 0) {
+            players.get(0).getHand().add(pickUpCard(players, 0));
         }
-        if(players.get(1).getDeck().size() > 0) {
-            players.get(1).getHand().add(PickUpCard(players, 1));
+        if (players.get(1).getDeck().size() > 0) {
+            players.get(1).getHand().add(pickUpCard(players, 1));
         }
 
     }
 
-    public ArrayList<Card> getEnvInHand(ArrayList<Card> hand) {
+    public ArrayList<Card> getEnvInHand(final ArrayList<Card> hand) {
         ArrayList<Card> arr = new ArrayList<>();
         for (var card : hand) {
-            if ((card.getName().equals("Winterfell") ||
-                    card.getName().equals("Firestorm") ||
-                    card.getName().equals("Heart Hound"))) {
+            if ((card.getName().equals("Winterfell")
+                    || card.getName().equals("Firestorm")
+                    || card.getName().equals("Heart Hound"))) {
                 Card carte = new Card(card);
                 arr.add(carte);
             }
@@ -119,15 +115,12 @@ public class Game {
         table.setCurrTurn((table.getCurrTurn() + 1) % 2);
     }
 
-    public void resetGame() {
-        setGameEnded(false);
-    }
 
     public Table getTable() {
         return table;
     }
 
-    public void setTable(Table table) {
+    public void setTable(final Table table) {
         this.table = table;
     }
 
@@ -135,7 +128,7 @@ public class Game {
         return players;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
+    public void setPlayers(final ArrayList<Player> players) {
         this.players = players;
     }
 
@@ -147,11 +140,11 @@ public class Game {
         return round;
     }
 
-    public void setTurnsThisGame(int turnsThisGame) {
+    public void setTurnsThisGame(final int turnsThisGame) {
         this.turnsThisGame = turnsThisGame;
     }
 
-    public void setRound(int round) {
+    public void setRound(final int round) {
         this.round = round;
     }
 
@@ -159,7 +152,7 @@ public class Game {
         return err;
     }
 
-    public void setErr(Error err) {
+    public void setErr(final Error err) {
         this.err = err;
     }
 
@@ -167,7 +160,7 @@ public class Game {
         return gameEnded;
     }
 
-    public void setGameEnded(boolean gameEnded) {
+    public void setGameEnded(final boolean gameEnded) {
         this.gameEnded = gameEnded;
     }
 
@@ -175,7 +168,7 @@ public class Game {
         return gameEndMessage;
     }
 
-    public void setGameEndMessage(String gameEndMessage) {
+    public void setGameEndMessage(final String gameEndMessage) {
         this.gameEndMessage = gameEndMessage;
     }
 }

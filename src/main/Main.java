@@ -1,24 +1,22 @@
 package main;
 
-import CustomClasses.*;
+import classes.myClasses.Actions;
+import classes.myClasses.Game;
+import classes.myClasses.Statistics;
 import checker.Checker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
-import fileio.*;
+import fileio.Input;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
-
-import static java.util.Collections.*;
 
 /**
  * The entry point to this homework. It runs the checker that tests your implentation.
@@ -80,15 +78,15 @@ public final class Main {
         Statistics.setGamesWonByPlayerTwo(0);
         Statistics.setGamesPlayed(0);
 
-        for (int curr_game = 0; curr_game < inputData.getGames().size(); ++curr_game) {
+        for (int currGame = 0; currGame < inputData.getGames().size(); ++currGame) {
 
-            Game game = new Game(inputData, curr_game);
+            Game game = new Game(inputData, currGame);
 
-            game.GamePrep(inputData.getGames().get(curr_game));
+            game.gamePrep(inputData.getGames().get(currGame));
 
-            var commands = inputData.getGames().get(curr_game).getActions();
+            var commands = inputData.getGames().get(currGame).getActions();
 
-            Actions.Command(game, commands, output);
+            Actions.command(game, commands, output);
         }
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();

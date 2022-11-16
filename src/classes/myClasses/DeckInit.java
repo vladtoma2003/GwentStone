@@ -1,6 +1,15 @@
-package CustomClasses;
+package classes.myClasses;
 
-import Cards.*;
+import cards.Card;
+import cards.Sentinel;
+import cards.Environment;
+import cards.Miraj;
+import cards.TheRipper;
+import cards.Goliath;
+import cards.Warden;
+import cards.Berserker;
+import cards.CursedOne;
+import cards.Disciple;
 import fileio.CardInput;
 
 import java.util.ArrayList;
@@ -9,11 +18,11 @@ public class DeckInit {
 
     private ArrayList<Card> deck = new ArrayList<>();
 
-    public DeckInit(ArrayList<CardInput> dec) {
+    public DeckInit(final ArrayList<CardInput> dec) {
         for (CardInput c : dec) {
-            if (c.getName().equals("Winterfell") ||
-                    c.getName().equals("Firestorm") ||
-                    c.getName().equals("Heart Hound")) {
+            if (c.getName().equals("Winterfell")
+                    || c.getName().equals("Firestorm")
+                    || c.getName().equals("Heart Hound")) {
                 Environment card = new Environment(c);
                 deck.add(card);
             } else {

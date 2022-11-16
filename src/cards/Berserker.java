@@ -1,23 +1,23 @@
-package Cards;
+package cards;
 
 import fileio.CardInput;
 
-public class Sentinel extends Minion {
-    public Sentinel(final CardInput input) {
+public class Berserker extends Minion {
+    public Berserker(final CardInput input) {
         super(input);
         setRow(0);
         setFrozen(false);
         setTank(false);
     }
 
-    public Sentinel(final Minion input) {
+    public Berserker(final Minion input) {
         super(input);
         setRow(0);
         setFrozen(false);
         setTank(false);
     }
 
-    public Sentinel() {
+    public Berserker() {
 
     }
 }

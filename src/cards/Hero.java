@@ -1,4 +1,4 @@
-package Cards;
+package cards;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;

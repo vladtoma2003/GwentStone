@@ -1,6 +1,7 @@
-package CustomClasses;
+package classes.myClasses;
 
-import Cards.*;
+import cards.Card;
+import cards.Hero;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class Player {
     private int closestRow;
 
 
-    public Player(ArrayList<Card> deck, Hero hero, int playerIdx) {
+    public Player(final ArrayList<Card> deck, final Hero hero, final int playerIdx) {
         this.deck = deck;
         this.hero = hero;
         this.playerIdx = playerIdx;
@@ -27,7 +28,7 @@ public class Player {
         return deck;
     }
 
-    public void setDeck(ArrayList<Card> deck) {
+    public void setDeck(final ArrayList<Card> deck) {
         this.deck = deck;
     }
 
@@ -35,7 +36,7 @@ public class Player {
         return hand;
     }
 
-    public void setHand(ArrayList<Card> hand) {
+    public void setHand(final ArrayList<Card> hand) {
         this.hand = hand;
     }
 
@@ -43,7 +44,7 @@ public class Player {
         return hero;
     }
 
-    public void setHero(Hero hero) {
+    public void setHero(final Hero hero) {
         this.hero = hero;
     }
 
@@ -51,7 +52,7 @@ public class Player {
         return playerIdx;
     }
 
-    public void setPlayerIdx(int playerIdx) {
+    public void setPlayerIdx(final int playerIdx) {
         this.playerIdx = playerIdx;
     }
 
@@ -59,7 +60,7 @@ public class Player {
         return mana;
     }
 
-    public void setMana(int mana) {
+    public void setMana(final int mana) {
         this.mana = mana;
     }
 
@@ -67,7 +68,7 @@ public class Player {
         return closestRow;
     }
 
-    public void setClosestRow(int closestRow) {
+    public void setClosestRow(final int closestRow) {
         this.closestRow = closestRow;
     }
 

@@ -1,23 +1,25 @@
-package Cards;
+package cards;
 
 import fileio.CardInput;
 
-public class Warden extends Minion {
-    public Warden(final CardInput input) {
+public class Goliath extends Minion {
+
+    public Goliath(final CardInput input) {
         super(input);
         setRow(1);
         setFrozen(false);
         setTank(true);
     }
 
-    public Warden(final Minion input) {
+    public Goliath(final Minion input) {
         super(input);
         setRow(1);
         setFrozen(false);
         setTank(true);
     }
 
-    public Warden() {
+
+    public Goliath() {
 
     }
 }

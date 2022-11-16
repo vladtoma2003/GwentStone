@@ -1,4 +1,4 @@
-package Cards;
+package cards;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -41,12 +41,12 @@ public class Minion extends Card {
 
     }
 
-    public void Attack(final Minion attacked) {
+    public void attack(final Minion attacked) {
         attacked.setHealth(attacked.getHealth() - this.getAttackDamage());
         this.setHasAttacked(true);
     }
 
-    public void Attack(final Hero attacked) {
+    public void attack(final Hero attacked) {
         attacked.setHealth(attacked.getHealth() - this.getAttackDamage());
         this.setHasAttacked(true);
     }
